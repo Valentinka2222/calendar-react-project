@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode=development --devtool source-map",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
@@ -19,13 +21,21 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.1",
     "mini-css-extract-plugin": "^2.4.4",
+    "react-scripts": "5.0.1",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "dependencies": {
     "classnames": "^2.3.1",
