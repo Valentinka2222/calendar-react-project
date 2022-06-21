@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import Event from '../event/Event';
 
-const Hour = ({ dataHour, hourEvents }) => {
+const Hour = ({ dataHour, hourEvents, setUpdateEvents }) => {
   if (!hourEvents) {
     return null;
   }
@@ -13,12 +13,12 @@ const Hour = ({ dataHour, hourEvents }) => {
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1} onClick={handleClick}>
       {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
-        console.log(dateTo);
         const eventStart = moment(dateFrom).format('HH:mm');
         const eventEnd = moment(dateTo).format('HH:mm');
 
         return (
           <Event
+            setUpdateEvents={setUpdateEvents}
             key={id}
             hourEvents={hourEvents}
             height={Number(moment(dateFrom).format('mm')) - Number(moment(dateTo).format('mm'))}

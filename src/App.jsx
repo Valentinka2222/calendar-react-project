@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
-import Modal from './components/modal/Modal.jsx';
-import PropTypes from 'prop-types';
-
+import Modal from './components/modal/Modal';
+import { getEventList } from './gateway/eventGateAway';
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 
 import './common.scss';
 
 const App = () => {
+  const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
-  const [isShowModal, setIsShowModal] = useState(true);
+  const [isHiddenModal, setIsHiddenModal] = useState(false);
+
+  const isShowModal = () => {
+    setIsHiddenModal(!isHiddenModal);
+  };
+  useEffect(() => {
+    getEventList().then(eventsList => {
+      setEvents(eventsList);
+    });
+  }, []);
+
   const handleCurrentWeek = () => {
     setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
   };
@@ -31,13 +42,14 @@ const App = () => {
 
   return (
     <>
-      {isShowModal && <Modal />}
       <Header
+        isShowModal={isShowModal}
         handleNextWeek={handleNextWeek}
         handlePreviousWeek={handlePreviousWeek}
         handleCurrentWeek={handleCurrentWeek}
       />
-      <Calendar weekDates={weekDates} />
+      <Modal setUpdateEvents={setEvents} isShowModal={isShowModal} isHiddenModal={isHiddenModal} />
+      <Calendar weekDates={weekDates} events={events} setUpdateEvents={setEvents} />
     </>
   );
 };

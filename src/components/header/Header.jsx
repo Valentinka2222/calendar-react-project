@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
-
-import Modal from '../modal/Modal';
+import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import './header.scss';
 
-const Header = ({ handleCurrentWeek, handleNextWeek, handlePreviousWeek }) => {
-  const [isShowEventList, setisShowEventList] = useState(true);
-
+const Header = ({ handleCurrentWeek, handleNextWeek, handlePreviousWeek, isShowModal }) => {
   return (
     <header className="header">
-      <button
-        className="button create-event-btn"
-        onClick={() => setisShowEventList(!isShowEventList)}
-      >
+      <button className="button create-event-btn" onClick={isShowModal}>
         <i className="fas fa-plus create-event-btn__icon"></i>Create
       </button>
 
@@ -31,7 +24,6 @@ const Header = ({ handleCurrentWeek, handleNextWeek, handlePreviousWeek }) => {
         <span className="navigation__displayed-month">{`${moment().format('MMM')} - ${moment()
           .add(1, 'month')
           .format('MMM')}`}</span>
-        {!isShowEventList && <Modal />}
       </div>
     </header>
   );

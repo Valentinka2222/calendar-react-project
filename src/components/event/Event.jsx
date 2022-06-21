@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { deleteEvent } from '../../gateway/eventGateAway';
+import { deleteEvent, fetchEvents } from '../../gateway/eventGateAway';
 import './event.scss';
 import '../../common.scss';
 import PropTypes from 'prop-types';
 
-const Event = ({ height, marginTop, title, time, hourEvents }) => {
+const Event = ({ height, marginTop, title, time, hourEvents, setUpdateEvents }) => {
   let newHeight;
 
   const style = {
@@ -16,11 +16,11 @@ const Event = ({ height, marginTop, title, time, hourEvents }) => {
     marginTop: '20%',
     paddingLeft: '25%',
   };
-  // if (height < Number('15%')) {
-  //   newHeight = '15%';
-  //   height = newHeight;
-  //   return newHeight;
-  // }
+  if (height < Number('15%')) {
+    newHeight = '15%';
+    height = newHeight;
+    return newHeight;
+  }
   const eventStyle = {
     height: newHeight,
     marginTop,
@@ -30,7 +30,9 @@ const Event = ({ height, marginTop, title, time, hourEvents }) => {
   const handleClick = () => {
     setIsShowDeleteEvent(!isShowDeleteEvent);
   };
-  const handleDeleteEvent = () => hourEvents.map(({ id }) => deleteEvent(id));
+
+  const handleDeleteEvent = () =>
+    hourEvents.map(({ id }) => deleteEvent(id).then(() => fetchEvents(setUpdateEvents)));
 
   return (
     <div style={eventStyle} className="event" onClick={handleClick}>

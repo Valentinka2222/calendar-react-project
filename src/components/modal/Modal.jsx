@@ -1,11 +1,12 @@
-import React, { Component, useState } from 'react';
-
-import { fetchCreateEvent, getEventList } from '../../gateway/eventGateAway';
-import './modal.scss';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = () => {
-  const [updatedEvent, setUpdatedEvent] = useState({
+import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
+
+import './modal.scss';
+
+const Modal = ({ setUpdateEvents, isHiddenModal, isShowModal }) => {
+  const [updatedEvent, setEvent] = useState({
     date: '',
     startTime: '',
     endTime: '',
@@ -13,14 +14,13 @@ const Modal = () => {
     dateTo: '',
   });
 
-  const [isHidden, setIsHidden] = useState(false);
   const handleChange = event => {
     const { name, value } = event.target;
     const { date, startTime, endTime } = updatedEvent;
     const startTimeEvent = date + ' ' + startTime;
     const endTimeEvent = date + ' ' + endTime;
 
-    setUpdatedEvent(prevState => ({
+    setEvent(prevState => ({
       ...prevState,
       [name]: value,
       dateFrom: new Date(startTimeEvent),
@@ -31,21 +31,20 @@ const Modal = () => {
   const handleSubmit = (event, eventData) => {
     event.preventDefault();
 
-    fetchCreateEvent(eventData);
+    fetchCreateEvent(eventData).then(() => fetchEvents(setUpdateEvents));
 
     event.target.reset();
   };
 
-  const handleClick = () => {
-    setIsHidden(!isHidden);
+  const handleShowModal = () => {
+    isShowModal(!isHiddenModal);
   };
-  console.log(updatedEvent);
 
   return (
-    <div className="modal overlay">
+    <div className={!isHiddenModal ? 'modal overlay hidden' : 'modal overlay'}>
       <div className="modal__content">
         <div className="create-event">
-          <button className="create-event__close-btn" onClick={handleClick}>
+          <button className="create-event__close-btn" onClick={handleShowModal}>
             +
           </button>
           <form className="event-form" onSubmit={event => handleSubmit(event, updatedEvent)}>
@@ -67,6 +66,7 @@ const Modal = () => {
               <input
                 onChange={handleChange}
                 type="time"
+                step="900"
                 defaultValue={new Date().toISOString().slice(11, 16)}
                 name="startTime"
                 className="event-form__field"

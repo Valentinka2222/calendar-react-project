@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Hour from '../hour/Hour';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import './day.scss';
-import PropTypes from 'prop-types';
+import Hour from '../hour/Hour';
 
-const Day = ({ dataDay, dayEvents }) => {
+import './day.scss';
+
+const Day = ({ dataDay, dayEvents, setUpdateEvents }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -37,7 +38,14 @@ const Day = ({ dataDay, dayEvents }) => {
           );
         });
 
-        return <Hour key={dataDay + hour} dataHour={hour} hourEvents={hourEvents} />;
+        return (
+          <Hour
+            setUpdateEvents={setUpdateEvents}
+            key={dataDay + hour}
+            dataHour={hour}
+            hourEvents={hourEvents}
+          />
+        );
       })}
     </div>
   );
