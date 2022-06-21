@@ -16,6 +16,7 @@ const Calendar = ({ weekDates }) => {
       setEvents(eventsList);
     });
   }, []);
+
   return (
     <section className="calendar">
       <Navigation navWeekDates={weekDates} />

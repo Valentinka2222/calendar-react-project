@@ -1,109 +1,100 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
-import { fetchCreateEvent } from '../../gateway/eventGateAway';
+import { fetchCreateEvent, getEventList } from '../../gateway/eventGateAway';
 import './modal.scss';
 import PropTypes from 'prop-types';
 
-class Modal extends Component {
-  constructor(props) {
-    super(props);
-    this.obj = {};
-    this.state = {
-      title: '',
-      description: '',
-      date: '',
-      startTime: '',
-      endTime: '',
-    };
-  }
-  createEvent = formData => {
-    return fetchCreateEvent(formData);
-  };
+const Modal = () => {
+  const [updatedEvent, setUpdatedEvent] = useState({
+    date: '',
+    startTime: '',
+    endTime: '',
+    dateFrom: '',
+    dateTo: '',
+  });
 
-  handleChange = event => {
+  const [isHidden, setIsHidden] = useState(false);
+  const handleChange = event => {
     const { name, value } = event.target;
-    const startTimeEvent = this.state.date + ' ' + this.state.startTime;
-    const endTimeEvent = this.state.date + ' ' + this.state.endTime;
-    this.setState({
+    const { date, startTime, endTime } = updatedEvent;
+    const startTimeEvent = date + ' ' + startTime;
+    const endTimeEvent = date + ' ' + endTime;
+
+    setUpdatedEvent(prevState => ({
+      ...prevState,
       [name]: value,
-      dateTo: new Date(endTimeEvent),
       dateFrom: new Date(startTimeEvent),
-    });
+      dateTo: new Date(endTimeEvent),
+    }));
   };
 
-  handleSubmit = (event, eventData) => {
+  const handleSubmit = (event, eventData) => {
     event.preventDefault();
 
-    this.setState({
-      dateFrom: this.state.startTime,
-    });
-
-    this.createEvent(eventData);
+    fetchCreateEvent(eventData);
 
     event.target.reset();
   };
 
-  handleClick = () => {
-    this.setState({ isHiddenEvent: !this.state.isHiddenEvent });
+  const handleClick = () => {
+    setIsHidden(!isHidden);
   };
+  console.log(updatedEvent);
 
-  render() {
-    if (this.state.isHiddenEvent) {
-      return null;
-    }
-
-    return (
-      <div className="modal overlay">
-        <div className="modal__content">
-          <div className="create-event">
-            <button className="create-event__close-btn" onClick={this.handleClick}>
-              +
-            </button>
-            <form className="event-form" onSubmit={event => this.handleSubmit(event, this.state)}>
+  return (
+    <div className="modal overlay">
+      <div className="modal__content">
+        <div className="create-event">
+          <button className="create-event__close-btn" onClick={handleClick}>
+            +
+          </button>
+          <form className="event-form" onSubmit={event => handleSubmit(event, updatedEvent)}>
+            <input
+              type="text"
+              onChange={handleChange}
+              name="title"
+              placeholder="Title"
+              className="event-form__field"
+            />
+            <div className="event-form__time">
               <input
-                type="text"
-                onChange={this.handleChange}
-                name="title"
-                placeholder="Title"
+                onChange={handleChange}
+                type="date"
+                defaultValue={new Date().toISOString().slice(0, 10)}
+                name="date"
                 className="event-form__field"
               />
-              <div className="event-form__time">
-                <input
-                  onChange={this.handleChange}
-                  type="date"
-                  name="date"
-                  className="event-form__field"
-                />
-                <input
-                  onChange={this.handleChange}
-                  type="time"
-                  name="startTime"
-                  className="event-form__field"
-                />
-                <span>-</span>
-                <input
-                  onChange={this.handleChange}
-                  type="time"
-                  name="endTime"
-                  className="event-form__field"
-                />
-              </div>
-              <textarea
-                onChange={this.handleChange}
-                name="description"
-                placeholder="Description"
+              <input
+                onChange={handleChange}
+                type="time"
+                defaultValue={new Date().toISOString().slice(11, 16)}
+                name="startTime"
                 className="event-form__field"
               />
-              <button type="submit" className="event-form__submit-btn">
-                Create
-              </button>
-            </form>
-          </div>
+              <span>-</span>
+              <input
+                onChange={handleChange}
+                type="time"
+                defaultValue={new Date().toISOString().slice(11, 16)}
+                name="endTime"
+                className="event-form__field"
+              />
+            </div>
+            <textarea
+              onChange={handleChange}
+              name="description"
+              placeholder="Description"
+              className="event-form__field"
+            />
+            <button type="submit" className="event-form__submit-btn">
+              Create
+            </button>
+          </form>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Modal.propTypes = {
   title: PropTypes.string,

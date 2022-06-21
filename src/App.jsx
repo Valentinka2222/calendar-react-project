@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
+import Modal from './components/modal/Modal.jsx';
 import PropTypes from 'prop-types';
 
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
@@ -10,6 +11,7 @@ import './common.scss';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
+  const [isShowModal, setIsShowModal] = useState(true);
   const handleCurrentWeek = () => {
     setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
   };
@@ -29,6 +31,7 @@ const App = () => {
 
   return (
     <>
+      {isShowModal && <Modal />}
       <Header
         handleNextWeek={handleNextWeek}
         handlePreviousWeek={handlePreviousWeek}

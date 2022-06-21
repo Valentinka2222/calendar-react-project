@@ -16,11 +16,11 @@ const Event = ({ height, marginTop, title, time, hourEvents }) => {
     marginTop: '20%',
     paddingLeft: '25%',
   };
-  if (height < Number('15%')) {
-    newHeight = '15%';
-    height = newHeight;
-    return newHeight;
-  }
+  // if (height < Number('15%')) {
+  //   newHeight = '15%';
+  //   height = newHeight;
+  //   return newHeight;
+  // }
   const eventStyle = {
     height: newHeight,
     marginTop,

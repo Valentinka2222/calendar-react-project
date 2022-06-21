@@ -7,10 +7,13 @@ const Hour = ({ dataHour, hourEvents }) => {
   if (!hourEvents) {
     return null;
   }
-
+  const handleClick = e => {
+    console.log(e.target.dataset.time - 1);
+  };
   return (
-    <div className="calendar__time-slot" data-time={dataHour + 1}>
+    <div className="calendar__time-slot" data-time={dataHour + 1} onClick={handleClick}>
       {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
+        console.log(dateTo);
         const eventStart = moment(dateFrom).format('HH:mm');
         const eventEnd = moment(dateTo).format('HH:mm');
 
@@ -18,9 +21,7 @@ const Hour = ({ dataHour, hourEvents }) => {
           <Event
             key={id}
             hourEvents={hourEvents}
-            height={
-              Number(moment(dateFrom).format('mm')) + Number(moment(dateTo).format('mm')) + '%'
-            }
+            height={Number(moment(dateFrom).format('mm')) - Number(moment(dateTo).format('mm'))}
             marginTop={moment(dateFrom).format('mm') + 'px'}
             time={`${eventStart} - ${eventEnd}`}
             title={title}
