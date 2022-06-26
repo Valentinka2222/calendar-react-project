@@ -4,15 +4,7 @@ import PropTypes from 'prop-types';
 
 import './week.scss';
 
-const Week = ({
-  IsClickCreateBtn,
-  setsClickCreateBtn,
-  createDefaultDate,
-  weekDates,
-  events,
-  setUpdateEvents,
-  isShowModal,
-}) => {
+const Week = ({ createDefaultDate, weekDates, events, setUpdateEvents, isShowModal }) => {
   return (
     <div className="calendar__week">
       {weekDates.map(dayStart => {

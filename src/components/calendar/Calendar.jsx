@@ -7,9 +7,19 @@ import Sidebar from '../sidebar/Sidebar';
 
 import './calendar.scss';
 
-const Calendar = ({ isShowModal, createDefaultDate, weekDates, events, setUpdateEvents }) => {
+const Calendar = ({
+  setOnclick,
+  isShowModal,
+  createDefaultDate,
+  weekDates,
+  events,
+  setUpdateEvents,
+}) => {
+  const handleClick = () => {
+    setOnclick(false);
+  };
   return (
-    <section className="calendar">
+    <section className="calendar" onClick={handleClick}>
       <Navigation navWeekDates={weekDates} />
       <div className="calendar__body">
         <div className="calendar__week-container">

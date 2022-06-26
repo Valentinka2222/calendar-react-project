@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { formatMins } from '../../utils/dateUtils.js';
 
 import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
 
 import './modal.scss';
 
 const Modal = ({
+  getOnclick,
   defaultEndEventTime,
   defaultDate,
   setUpdateEvents,
@@ -20,26 +22,19 @@ const Modal = ({
     dateTo: '',
   });
   const currentDate = new Date();
-  const [defaultValue, setDefaultValue] = useState(currentDate);
 
   const handleChange = event => {
-    const { name, value } = event.target;
-    const { date, startTime, endTime } = updatedEvent;
+    let { name, value, defaultValue } = event.target;
+
+    let { date, startTime, endTime } = updatedEvent;
     const startTimeEvent = date + ' ' + startTime;
     const endTimeEvent = date + ' ' + endTime;
-    if (event && name === 'date') {
-      setDefaultValue(defaultDate);
-    }
-    if (event && name === 'startTime') {
-      setDefaultValue(defaultDate);
-    }
-    if (event && name === 'endTime') {
-      setDefaultValue(defaultEndEventTime);
-    }
 
     setEvent(prevState => ({
       ...prevState,
+      [name]: defaultValue,
       [name]: value,
+
       dateFrom: new Date(startTimeEvent),
       dateTo: new Date(endTimeEvent),
     }));
@@ -57,8 +52,6 @@ const Modal = ({
     isShowModal(!isHiddenModal);
   };
 
-  console.log(new Date(currentDate.setHours(currentDate.getHours() + 1)).toISOString());
-  console.log(defaultDate.toISOString().slice(11, 16));
   return (
     <div className={!isHiddenModal ? 'modal overlay hidden' : 'modal overlay'}>
       <div className="modal__content">
@@ -77,17 +70,26 @@ const Modal = ({
             <div className="event-form__time">
               <input
                 onChange={handleChange}
-                value={defaultValue.toISOString().slice(0, 10)}
-                // value={defaultDate.toISOString().slice(0, 10)}
+                // onClick={e => {
+                //   e.target.value = value;
+
+                // }}
+                value={
+                  getOnclick
+                    ? currentDate.toISOString().slice(0, 10)
+                    : defaultDate.toISOString().slice(0, 10)
+                }
                 type="date"
                 name="date"
                 className="event-form__field"
               />
               <input
                 onChange={handleChange}
-                value={defaultValue.toISOString().slice(11, 16)}
-                // defaultDate.toISOString().slice(11, 16)
-
+                value={
+                  getOnclick
+                    ? currentDate.getHours() + ':' + formatMins(currentDate.getMinutes())
+                    : defaultDate.toISOString().slice(11, 16)
+                }
                 type="time"
                 step="900"
                 name="startTime"
@@ -96,11 +98,13 @@ const Modal = ({
               <span>-</span>
               <input
                 onChange={handleChange}
+                onClick={e => {
+                  e.target.value = '';
+                }}
                 value={
-                  new Date(defaultValue.setHours(defaultValue.getHours() + 1))
-                    .toISOString()
-                    .slice(11, 16)
-                  //defaultEndEventTime.toISOString().slice(11, 16)
+                  getOnclick
+                    ? currentDate.getHours() + 1 + ':' + formatMins(currentDate.getMinutes())
+                    : defaultEndEventTime.toISOString().slice(11, 16)
                 }
                 type="time"
                 step="900"

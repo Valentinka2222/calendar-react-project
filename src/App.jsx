@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
 import Modal from './components/modal/Modal';
-import { getEventList } from './gateway/eventGateAway';
+
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 
 import './common.scss';
@@ -15,6 +15,7 @@ const App = () => {
   const [isHiddenModal, setIsHiddenModal] = useState(false);
   const [defaultDate, setDefaultDate] = useState(new Date());
   const [defaultEndEventTime, setDefaultEndEventTime] = useState(new Date());
+  const [getOnclick, setOnclick] = useState(true);
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
   };
@@ -46,12 +47,15 @@ const App = () => {
   return (
     <>
       <Header
+        getOnclick={getOnclick}
+        setOnclick={setOnclick}
         isShowModal={isShowModal}
         handleNextWeek={handleNextWeek}
         handlePreviousWeek={handlePreviousWeek}
         handleCurrentWeek={handleCurrentWeek}
       />
       <Modal
+        getOnclick={getOnclick}
         defaultEndEventTime={defaultEndEventTime}
         defaultDate={defaultDate}
         setUpdateEvents={setEvents}
@@ -59,6 +63,8 @@ const App = () => {
         isHiddenModal={isHiddenModal}
       />
       <Calendar
+        getOnclick={getOnclick}
+        setOnclick={setOnclick}
         isShowModal={isShowModal}
         createDefaultDate={createDefaultDate}
         weekDates={weekDates}
