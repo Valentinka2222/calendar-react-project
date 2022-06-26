@@ -6,7 +6,7 @@ import Hour from '../hour/Hour';
 
 import './day.scss';
 
-const Day = ({ dataDay, dayEvents, setUpdateEvents }) => {
+const Day = ({ isShowModal, createDefaultDate, dataDay, dayEvents, setUpdateEvents }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -40,10 +40,14 @@ const Day = ({ dataDay, dayEvents, setUpdateEvents }) => {
 
         return (
           <Hour
+            isShowModal={isShowModal}
+            createDefaultDate={createDefaultDate}
+            dataDay={dataDay}
             setUpdateEvents={setUpdateEvents}
             key={dataDay + hour}
             dataHour={hour}
             hourEvents={hourEvents}
+            dayEvents={dayEvents}
           />
         );
       })}

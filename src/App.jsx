@@ -13,15 +13,18 @@ const App = () => {
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState(false);
-
+  const [defaultDate, setDefaultDate] = useState(new Date());
+  const [defaultEndEventTime, setDefaultEndEventTime] = useState(new Date());
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
   };
-  useEffect(() => {
-    getEventList().then(eventsList => {
-      setEvents(eventsList);
-    });
-  }, []);
+
+  const createDefaultDate = (date, time) => {
+    setDefaultDate(new Date(date));
+    setDefaultEndEventTime(new Date(time));
+    console.log(date);
+    console.log(new Date(date));
+  };
 
   const handleCurrentWeek = () => {
     setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
@@ -48,8 +51,20 @@ const App = () => {
         handlePreviousWeek={handlePreviousWeek}
         handleCurrentWeek={handleCurrentWeek}
       />
-      <Modal setUpdateEvents={setEvents} isShowModal={isShowModal} isHiddenModal={isHiddenModal} />
-      <Calendar weekDates={weekDates} events={events} setUpdateEvents={setEvents} />
+      <Modal
+        defaultEndEventTime={defaultEndEventTime}
+        defaultDate={defaultDate}
+        setUpdateEvents={setEvents}
+        isShowModal={isShowModal}
+        isHiddenModal={isHiddenModal}
+      />
+      <Calendar
+        isShowModal={isShowModal}
+        createDefaultDate={createDefaultDate}
+        weekDates={weekDates}
+        events={events}
+        setUpdateEvents={setEvents}
+      />
     </>
   );
 };
