@@ -11,8 +11,8 @@ export const getEventList = () => {
     })
     .catch(error => console.log(error));
 };
-export const deleteEvent = eventId => {
-  return fetch(`${baseUrl}/${eventId}`, {
+export const deleteEvent = id => {
+  return fetch(`${baseUrl}/${id}`, {
     method: 'DELETE',
   }).then(response => {
     if (!response.ok) {

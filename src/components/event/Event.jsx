@@ -4,7 +4,16 @@ import './event.scss';
 import '../../common.scss';
 import PropTypes from 'prop-types';
 
-const Event = ({ height, marginTop, title, time, hourEvents, setUpdateEvents }) => {
+const Event = ({
+  setIsHiddenModal,
+  isHiddenModal,
+  height,
+  marginTop,
+  title,
+  time,
+  hourEvents,
+  setUpdateEvents,
+}) => {
   let newHeight;
 
   const style = {
@@ -27,15 +36,18 @@ const Event = ({ height, marginTop, title, time, hourEvents, setUpdateEvents }) 
   };
   const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = event => {
     setIsShowDeleteEvent(!isShowDeleteEvent);
   };
 
-  const handleDeleteEvent = () =>
-    hourEvents.map(({ id }) => deleteEvent(id).then(() => fetchEvents(setUpdateEvents)));
+  const handleDeleteEvent = e => {
+    setIsHiddenModal(false);
+
+    return hourEvents.map(({ id }) => deleteEvent(id).then(() => fetchEvents(setUpdateEvents)));
+  };
 
   return (
-    <div style={eventStyle} className="event" onClick={handleClick}>
+    <div style={eventStyle} className="event" onPointerEnter={handleClick}>
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
       {isShowDeleteEvent ? (

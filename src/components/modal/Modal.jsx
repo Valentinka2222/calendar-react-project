@@ -5,7 +5,7 @@ import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
 import { getEventList } from '../../gateway/eventGateAway.js';
 import './modal.scss';
 
-const Modal = ({ updatedEvent, setUpdatedEvent, setEvents, isHiddenModal, isShowModal }) => {
+const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isHiddenModal }) => {
   const handleChange = event => {
     const { name, value } = event.target;
     const { date, startTime, endTime } = updatedEvent;
@@ -33,7 +33,7 @@ const Modal = ({ updatedEvent, setUpdatedEvent, setEvents, isHiddenModal, isShow
   };
 
   const handleShowModal = e => {
-    isShowModal(!isHiddenModal);
+    setIsHiddenModal(false);
   };
 
   return (

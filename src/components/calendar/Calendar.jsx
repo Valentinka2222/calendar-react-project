@@ -7,7 +7,15 @@ import Sidebar from '../sidebar/Sidebar';
 
 import './calendar.scss';
 
-const Calendar = ({ changeValue, isShowModal, weekDates, events, setUpdateEvents }) => {
+const Calendar = ({
+  setIsHiddenModal,
+  isHiddenModal,
+  changeValue,
+
+  weekDates,
+  events,
+  setUpdateEvents,
+}) => {
   return (
     <section className="calendar">
       <Navigation navWeekDates={weekDates} />
@@ -15,8 +23,9 @@ const Calendar = ({ changeValue, isShowModal, weekDates, events, setUpdateEvents
         <div className="calendar__week-container">
           <Sidebar />
           <Week
+            setIsHiddenModal={setIsHiddenModal}
+            isHiddenModal={isHiddenModal}
             changeValue={changeValue}
-            isShowModal={isShowModal}
             weekDates={weekDates}
             events={events}
             setUpdateEvents={setUpdateEvents}

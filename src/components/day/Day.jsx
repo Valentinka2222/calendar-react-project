@@ -8,8 +8,9 @@ import './day.scss';
 
 const Day = ({
   changeValue,
-  isShowModal,
 
+  setIsHiddenModal,
+  isHiddenModal,
   dataDay,
   dayEvents,
   setUpdateEvents,
@@ -47,8 +48,9 @@ const Day = ({
 
         return (
           <Hour
+            setIsHiddenModal={setIsHiddenModal}
+            isHiddenModal={isHiddenModal}
             changeValue={changeValue}
-            isShowModal={isShowModal}
             dataDay={dataDay}
             setUpdateEvents={setUpdateEvents}
             key={dataDay + hour}

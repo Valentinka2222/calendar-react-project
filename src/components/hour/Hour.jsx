@@ -9,34 +9,23 @@ const Hour = ({
   setUpdateEvents,
   changeValue,
   dataDay,
-
-  isShowModal,
+  setIsHiddenModal,
+  isHiddenModal,
 }) => {
   const handleClick = e => {
     console.log(dataDay);
-    isShowModal();
+    setIsHiddenModal(true);
+
     const time = Number(e.target.dataset.time);
     let createDateStartEvent =
-      new Date().getFullYear() +
-      '-' +
-      formatMins(new Date().getMonth()) +
-      '-' +
-      formatMins(String(dataDay)) +
+      new Date().toISOString().slice(0, 8) +
+      formatMins(Number(dataDay)) +
       'T' +
-      formatMins(Number(time) + 1) +
+      formatMins(Number(time) - 1) +
       ':00';
-
+    console.log(time);
     changeValue(createDateStartEvent);
-    console.log(
-      new Date().getFullYear() +
-        '-' +
-        formatMins(new Date().getMonth()) +
-        '-' +
-        formatMins(String(dataDay)) +
-        'T' +
-        formatMins(Number(time) + 1) +
-        ':00',
-    );
+    console.log(createDateStartEvent);
 
     return createDateStartEvent;
   };
@@ -49,6 +38,8 @@ const Hour = ({
 
         return (
           <Event
+            setIsHiddenModal={setIsHiddenModal}
+            isHiddenModal={isHiddenModal}
             setUpdateEvents={setUpdateEvents}
             key={id}
             hourEvents={hourEvents}

@@ -6,11 +6,11 @@ import './week.scss';
 
 const Week = ({
   changeValue,
-
+  setIsHiddenModal,
+  isHiddenModal,
   weekDates,
   events,
   setUpdateEvents,
-  isShowModal,
 }) => {
   return (
     <div className="calendar__week">
@@ -21,8 +21,9 @@ const Week = ({
 
         return (
           <Day
+            setIsHiddenModal={setIsHiddenModal}
+            isHiddenModal={isHiddenModal}
             changeValue={changeValue}
-            isShowModal={isShowModal}
             setUpdateEvents={setUpdateEvents}
             key={dayStart.getDate()}
             dataDay={dayStart.getDate()}

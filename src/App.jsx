@@ -18,21 +18,49 @@ const App = () => {
     date: currentDate.toISOString().slice(0, 10),
     startTime: currentDate.getHours() + ':' + formatMins(currentDate.getMinutes()),
     endTime: currentDate.getHours() + 1 + ':' + formatMins(currentDate.getMinutes()),
-    dateFrom: '',
-    dateTo: '',
+    dateFrom: new Date(
+      currentDate.toISOString().slice(0, 10) +
+        'T' +
+        currentDate.getHours() +
+        ':' +
+        formatMins(currentDate.getMinutes()),
+    ),
+    dateTo: new Date(
+      currentDate.toISOString().slice(0, 10) +
+        'T' +
+        (currentDate.getHours() + 1) +
+        ':' +
+        formatMins(currentDate.getMinutes()),
+    ),
   });
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
   };
   const changeValue = newDate => {
+    console.log(newDate);
+    console.log(newDate.slice(0, 10));
     setUpdatedEvent({
-      date: new Date(newDate).toISOString().slice(0, 10),
+      date: String(newDate.slice(0, 10)),
       startTime:
         formatMins(new Date(newDate).getHours()) + ':' + formatMins(new Date(newDate).getMinutes()),
       endTime:
         formatMins(new Date(newDate).getHours() + 1) +
         ':' +
         formatMins(new Date(newDate).getMinutes()),
+      dateFrom: new Date(
+        String(newDate.slice(0, 10)) +
+          ' ' +
+          formatMins(new Date(newDate).getHours()) +
+          ':' +
+          formatMins(new Date(newDate).getMinutes()),
+      ),
+      dateTo: new Date(
+        String(newDate.slice(0, 10)) +
+          ' ' +
+          formatMins(new Date(newDate).getHours() + 1) +
+          ':' +
+          formatMins(new Date(newDate).getMinutes()),
+      ),
     });
   };
 
@@ -62,18 +90,19 @@ const App = () => {
         handleCurrentWeek={handleCurrentWeek}
       />
       <Modal
+        setIsHiddenModal={setIsHiddenModal}
         setUpdatedEvent={setUpdatedEvent}
         updatedEvent={updatedEvent}
         setEvents={setEvents}
-        isShowModal={isShowModal}
         isHiddenModal={isHiddenModal}
       />
       <Calendar
         changeValue={changeValue}
-        isShowModal={isShowModal}
         weekDates={weekDates}
         events={events}
         setUpdateEvents={setEvents}
+        setIsHiddenModal={setIsHiddenModal}
+        isHiddenModal={isHiddenModal}
       />
     </>
   );
