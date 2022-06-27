@@ -24,7 +24,7 @@ const Modal = ({
   const currentDate = new Date();
 
   const handleChange = event => {
-    let { name, value, defaultValue } = event.target;
+    let { name, value } = event.target;
 
     let { date, startTime, endTime } = updatedEvent;
     const startTimeEvent = date + ' ' + startTime;
@@ -32,7 +32,7 @@ const Modal = ({
 
     setEvent(prevState => ({
       ...prevState,
-      [name]: defaultValue,
+
       [name]: value,
 
       dateFrom: new Date(startTimeEvent),
@@ -51,6 +51,7 @@ const Modal = ({
   const handleShowModal = e => {
     isShowModal(!isHiddenModal);
   };
+  console.log(currentDate.getHours() + ':' + formatMins(currentDate.getMinutes()));
 
   return (
     <div className={!isHiddenModal ? 'modal overlay hidden' : 'modal overlay'}>
@@ -98,9 +99,6 @@ const Modal = ({
               <span>-</span>
               <input
                 onChange={handleChange}
-                onClick={e => {
-                  e.target.value = '';
-                }}
                 value={
                   getOnclick
                     ? currentDate.getHours() + 1 + ':' + formatMins(currentDate.getMinutes())
