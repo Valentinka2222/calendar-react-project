@@ -4,27 +4,36 @@ import PropTypes from 'prop-types';
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
 import Modal from './components/modal/Modal';
-
+import { formatMins } from './utils/dateUtils.js';
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 
 import './common.scss';
 
 const App = () => {
+  const currentDate = new Date();
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState(false);
-  const [defaultDate, setDefaultDate] = useState(new Date());
-  const [defaultEndEventTime, setDefaultEndEventTime] = useState(new Date());
-  const [getOnclick, setOnclick] = useState(true);
+  const [updatedEvent, setEvent] = useState({
+    date: currentDate.toISOString().slice(0, 10),
+    startTime: currentDate.getHours() + ':' + formatMins(currentDate.getMinutes()),
+    endTime: currentDate.getHours() + 1 + ':' + formatMins(currentDate.getMinutes()),
+    dateFrom: '',
+    dateTo: '',
+  });
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
   };
-
-  const createDefaultDate = (date, time) => {
-    setDefaultDate(new Date(date));
-    setDefaultEndEventTime(new Date(time));
-    console.log(date);
-    console.log(new Date(date));
+  const changeValue = newDate => {
+    setEvent({
+      date: new Date(newDate).toISOString().slice(0, 10),
+      startTime:
+        formatMins(new Date(newDate).getHours()) + ':' + formatMins(new Date(newDate).getMinutes()),
+      endTime:
+        formatMins(new Date(newDate).getHours() + 1) +
+        ':' +
+        formatMins(new Date(newDate).getMinutes()),
+    });
   };
 
   const handleCurrentWeek = () => {
@@ -47,26 +56,22 @@ const App = () => {
   return (
     <>
       <Header
-        getOnclick={getOnclick}
-        setOnclick={setOnclick}
         isShowModal={isShowModal}
         handleNextWeek={handleNextWeek}
         handlePreviousWeek={handlePreviousWeek}
         handleCurrentWeek={handleCurrentWeek}
       />
       <Modal
+        setEvent={setEvent}
+        updatedEvent={updatedEvent}
         getOnclick={getOnclick}
-        defaultEndEventTime={defaultEndEventTime}
-        defaultDate={defaultDate}
         setUpdateEvents={setEvents}
         isShowModal={isShowModal}
         isHiddenModal={isHiddenModal}
       />
       <Calendar
-        getOnclick={getOnclick}
-        setOnclick={setOnclick}
+        changeValue={changeValue}
         isShowModal={isShowModal}
-        createDefaultDate={createDefaultDate}
         weekDates={weekDates}
         events={events}
         setUpdateEvents={setEvents}

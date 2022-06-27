@@ -4,19 +4,9 @@ import PropTypes from 'prop-types';
 
 import './header.scss';
 
-const Header = ({
-  getOnclick,
-  setOnclick,
-  handleCurrentWeek,
-  handleNextWeek,
-  handlePreviousWeek,
-  isShowModal,
-}) => {
-  const handleClick = () => {
-    setOnclick(true);
-  };
+const Header = ({ handleCurrentWeek, handleNextWeek, handlePreviousWeek, isShowModal }) => {
   return (
-    <header className="header" onClick={handleClick}>
+    <header className="header">
       <button className="button create-event-btn" onClick={isShowModal}>
         <i className="fas fa-plus create-event-btn__icon"></i>Create
       </button>

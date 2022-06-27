@@ -7,14 +7,7 @@ import Sidebar from '../sidebar/Sidebar';
 
 import './calendar.scss';
 
-const Calendar = ({
-  setOnclick,
-  isShowModal,
-  createDefaultDate,
-  weekDates,
-  events,
-  setUpdateEvents,
-}) => {
+const Calendar = ({ changeValue, isShowModal, weekDates, events, setUpdateEvents }) => {
   const handleClick = () => {
     setOnclick(false);
   };
@@ -25,8 +18,8 @@ const Calendar = ({
         <div className="calendar__week-container">
           <Sidebar />
           <Week
+            changeValue={changeValue}
             isShowModal={isShowModal}
-            createDefaultDate={createDefaultDate}
             weekDates={weekDates}
             events={events}
             setUpdateEvents={setUpdateEvents}

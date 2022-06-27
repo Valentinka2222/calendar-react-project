@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 
 import './week.scss';
 
-const Week = ({ createDefaultDate, weekDates, events, setUpdateEvents, isShowModal }) => {
+const Week = ({
+  changeValue,
+
+  weekDates,
+  events,
+  setUpdateEvents,
+  isShowModal,
+}) => {
   return (
     <div className="calendar__week">
       {weekDates.map(dayStart => {
@@ -14,8 +21,8 @@ const Week = ({ createDefaultDate, weekDates, events, setUpdateEvents, isShowMod
 
         return (
           <Day
+            changeValue={changeValue}
             isShowModal={isShowModal}
-            createDefaultDate={createDefaultDate}
             setUpdateEvents={setUpdateEvents}
             key={dayStart.getDate()}
             dataDay={dayStart.getDate()}
