@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import moment from 'moment';
 import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
 import { getEventList } from '../../gateway/eventGateAway.js';
 import './modal.scss';
@@ -26,13 +26,43 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   }, []);
   const handleSubmit = (event, eventData) => {
     event.preventDefault();
-    console.log(eventData);
-    fetchCreateEvent(eventData).then(() => fetchEvents(setEvents));
+    if (
+      eventData.startTime === eventData.endTime ||
+      Number(eventData.endTime.slice(0, 2)) < Number(eventData.startTime.slice(0, 2))
+    ) {
+      alert('Please select another end time');
+      return;
+    } else if (eventData.dateFrom.getDate() !== eventData.dateTo.getDate()) {
+      alert('The event must take place within one day');
+      return;
+    } else if (
+      Number(eventData.endTime.slice(0, 2)) - Number(eventData.startTime.slice(0, 2)) >
+      6
+    ) {
+      alert('The event must last more than 6 hours');
+      return;
+    }
+    getEventList().then(eventsList => {
+      const sameEvent = eventsList.some(
+        el =>
+          String(moment(el.dateFrom).format('YYYY MM DD HH:mm')) ===
+            String(moment(eventData.dateFrom).format('YYYY MM DD HH:mm')) &&
+          String(moment(el.dateTo).format('YYYY MM DD HH:mm')) ===
+            String(moment(el.dateTo).format('YYYY MM DD HH:mm')),
+      );
+      console.log(sameEvent);
+      if (sameEvent === true) {
+        alert('You have event in this time!');
+        return;
+      } else {
+        fetchCreateEvent(eventData).then(() => fetchEvents(setEvents));
+      }
+    });
 
     event.target.reset();
   };
 
-  const handleShowModal = e => {
+  const handleShowModal = () => {
     setIsHiddenModal(false);
   };
 

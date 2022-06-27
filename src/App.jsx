@@ -13,7 +13,7 @@ const App = () => {
   const currentDate = new Date();
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
-  const [isHiddenModal, setIsHiddenModal] = useState(false);
+  const [isHiddenModal, setIsHiddenModal] = useState();
   const [updatedEvent, setUpdatedEvent] = useState({
     date: currentDate.toISOString().slice(0, 10),
     startTime: currentDate.getHours() + ':' + formatMins(currentDate.getMinutes()),
@@ -25,6 +25,7 @@ const App = () => {
         ':' +
         formatMins(currentDate.getMinutes()),
     ),
+    //updatedEvent.date
     dateTo: new Date(
       currentDate.toISOString().slice(0, 10) +
         'T' +
@@ -37,7 +38,6 @@ const App = () => {
     setIsHiddenModal(!isHiddenModal);
   };
   const changeValue = newDate => {
-    console.log(newDate);
     console.log(newDate.slice(0, 10));
     setUpdatedEvent({
       date: String(newDate.slice(0, 10)),
@@ -80,7 +80,7 @@ const App = () => {
     );
   };
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-
+  console.log(currentDate.getHours());
   return (
     <>
       <Header

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { deleteEvent, fetchEvents } from '../../gateway/eventGateAway';
 import './event.scss';
 import '../../common.scss';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 
 const Event = ({
   setIsHiddenModal,
-  isHiddenModal,
+
   height,
   marginTop,
   title,
@@ -36,14 +37,22 @@ const Event = ({
   };
   const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
 
-  const handleClick = event => {
+  const handleClick = () => {
     setIsShowDeleteEvent(!isShowDeleteEvent);
   };
 
   const handleDeleteEvent = e => {
+    e.stopPropagation();
     setIsHiddenModal(false);
 
-    return hourEvents.map(({ id }) => deleteEvent(id).then(() => fetchEvents(setUpdateEvents)));
+    return hourEvents.map(({ id, startTime }) => {
+      if (Math.abs(Number(moment().format('MM')) - Number(startTime.slice(3, 5))) < 15) {
+        alert('You can not delete event earlier than 15 minutes');
+        return;
+      } else {
+        deleteEvent(id).then(() => fetchEvents(setUpdateEvents));
+      }
+    });
   };
 
   return (

@@ -35,7 +35,7 @@ const Hour = ({
       {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
         const eventStart = moment(dateFrom).format('HH:mm');
         const eventEnd = moment(dateTo).format('HH:mm');
-
+        console.log(eventStart);
         return (
           <Event
             setIsHiddenModal={setIsHiddenModal}
