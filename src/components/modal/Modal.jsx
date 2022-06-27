@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
-
+import { getEventList } from '../../gateway/eventGateAway.js';
 import './modal.scss';
 
-const Modal = ({ updatedEvent, setEvent, setUpdateEvents, isHiddenModal, isShowModal }) => {
+const Modal = ({ updatedEvent, setUpdatedEvent, setEvents, isHiddenModal, isShowModal }) => {
   const handleChange = event => {
     const { name, value } = event.target;
     const { date, startTime, endTime } = updatedEvent;
     const startTimeEvent = date + ' ' + startTime;
     const endTimeEvent = date + ' ' + endTime;
 
-    setEvent(prevState => ({
+    setUpdatedEvent(prevState => ({
       ...prevState,
       [name]: value,
       dateFrom: new Date(startTimeEvent),
       dateTo: new Date(endTimeEvent),
     }));
   };
-
+  useEffect(() => {
+    getEventList().then(eventsList => {
+      setEvents(eventsList);
+    });
+  }, []);
   const handleSubmit = (event, eventData) => {
     event.preventDefault();
-
-    fetchCreateEvent(eventData).then(() => fetchEvents(setUpdateEvents));
+    console.log(eventData);
+    fetchCreateEvent(eventData).then(() => fetchEvents(setEvents));
 
     event.target.reset();
   };

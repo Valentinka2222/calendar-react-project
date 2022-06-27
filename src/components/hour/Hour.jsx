@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { changeValueDate, formatMins } from '../../utils/dateUtils';
+import { formatMins } from '../../utils/dateUtils';
 import Event from '../event/Event';
 
 const Hour = ({
@@ -13,21 +13,31 @@ const Hour = ({
   isShowModal,
 }) => {
   const handleClick = e => {
+    console.log(dataDay);
     isShowModal();
-    const time = Number(e.target.dataset.time) - 1;
+    const time = Number(e.target.dataset.time);
     let createDateStartEvent =
-      new Date().toISOString().slice(0, 8) +
-      String(dataDay + 1) +
+      new Date().getFullYear() +
+      '-' +
+      formatMins(new Date().getMonth()) +
+      '-' +
+      formatMins(String(dataDay)) +
       'T' +
-      formatMins(Number(time)) +
+      formatMins(Number(time) + 1) +
       ':00';
 
     changeValue(createDateStartEvent);
     console.log(
-      formatMins(new Date(createDateStartEvent).getHours()) +
-        ':' +
-        formatMins(new Date(createDateStartEvent).getMinutes()),
+      new Date().getFullYear() +
+        '-' +
+        formatMins(new Date().getMonth()) +
+        '-' +
+        formatMins(String(dataDay)) +
+        'T' +
+        formatMins(Number(time) + 1) +
+        ':00',
     );
+
     return createDateStartEvent;
   };
 

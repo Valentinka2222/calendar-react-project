@@ -14,7 +14,7 @@ const App = () => {
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState(false);
-  const [updatedEvent, setEvent] = useState({
+  const [updatedEvent, setUpdatedEvent] = useState({
     date: currentDate.toISOString().slice(0, 10),
     startTime: currentDate.getHours() + ':' + formatMins(currentDate.getMinutes()),
     endTime: currentDate.getHours() + 1 + ':' + formatMins(currentDate.getMinutes()),
@@ -25,7 +25,7 @@ const App = () => {
     setIsHiddenModal(!isHiddenModal);
   };
   const changeValue = newDate => {
-    setEvent({
+    setUpdatedEvent({
       date: new Date(newDate).toISOString().slice(0, 10),
       startTime:
         formatMins(new Date(newDate).getHours()) + ':' + formatMins(new Date(newDate).getMinutes()),
@@ -62,10 +62,9 @@ const App = () => {
         handleCurrentWeek={handleCurrentWeek}
       />
       <Modal
-        setEvent={setEvent}
+        setUpdatedEvent={setUpdatedEvent}
         updatedEvent={updatedEvent}
-        getOnclick={getOnclick}
-        setUpdateEvents={setEvents}
+        setEvents={setEvents}
         isShowModal={isShowModal}
         isHiddenModal={isHiddenModal}
       />
