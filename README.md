@@ -8,7 +8,7 @@
 </ol>
 
 <ol><h2>Development</h2>
-<li>Install the node dependencies <prev>npm install<prev></li>
+<li>Install the node dependencies <b>npm install<b></li>
 <li>Start the environment with npm start</li>
 <li>Visit your new local environment at http://localhost:8080</li>
 </ol>
