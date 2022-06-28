@@ -7,9 +7,7 @@
 <li>Execute npm start for development mode (npm run build for a production build)</li>
 </ol>
 
-<h2>Development</h2>
-
-<ol>
+<ol><h2>Development</h2>
 <li>Install the node dependencies npm install</li>
 <li>Start the environment with npm start</li>
 <li>Visit your new local environment at http://localhost:8080</li>
