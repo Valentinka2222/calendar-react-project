@@ -51,13 +51,12 @@ const Event = ({
     setIsHiddenModal(false);
 
     return hourEvents.map(({ id, date, dateFrom }) => {
-      let start = moment().format('YYYY-MM-DD HH:mm');
+      let start = moment().format('YYYY/MM/DD HH:mm');
       let diff = moment
-        .duration(moment(dateFrom, 'YYYY/MM/DD HH:mm').diff(moment(start, 'YYYY/MM/DD HH:mm')))
-        .asMinutes();
-      if (diff < 15 && moment().format('YYYY-MM-DD') === date) {
+        .duration(moment(start, 'YYYY/MM/DD HH:mm').diff(moment(dateFrom, 'YYYY/MM/DD HH:mm')))
+        .asHours();
+      if (Math.abs(diff) <= 0.25 && moment().format('YYYY-MM-DD') === date) {
         alert('You can not delete event earlier than 15 minutes');
-        console.log(Math.abs(diff));
         return;
       } else {
         deleteEvent(id).then(() => fetchEvents(setUpdateEvents));
