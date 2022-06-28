@@ -29,6 +29,9 @@ export const getDateTime = (date, time) => {
 export const formatMins = mins => {
   return mins < 10 ? `0${mins}` : mins;
 };
+export const formatDiffMins = mins => {
+  return mins < 15 ? mins + 60 : mins;
+};
 
 export const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export const months = [

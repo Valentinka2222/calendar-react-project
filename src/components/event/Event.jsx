@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { formatDiffMins } from '../../utils/dateUtils';
 import { deleteEvent, fetchEvents } from '../../gateway/eventGateAway';
 import './event.scss';
 import '../../common.scss';
@@ -37,16 +38,31 @@ const Event = ({
   };
   const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = e => {
+    e.stopPropagation();
+    setIsHiddenModal(false);
+
     setIsShowDeleteEvent(!isShowDeleteEvent);
   };
 
   const handleDeleteEvent = e => {
     e.stopPropagation();
+
     setIsHiddenModal(false);
 
-    return hourEvents.map(({ id, startTime, dateFrom }) => {
-      if (Number(moment().format('mm')) - Number(moment(dateFrom)) < 15) {
+    return hourEvents.map(({ id, date, dateFrom }) => {
+      let start = moment().format('YYYY-MM-DD HH:mm');
+      let diff;
+      if (moment().format('YYYY-MM-DD ') === date) {
+        diff = moment
+          .duration(moment(dateFrom, 'YYYY/MM/DD HH:mm').diff(moment(start, 'YYYY/MM/DD HH:mm')))
+          .asMinutes();
+
+        alert('You can not delete event earlier than 15 minutes');
+        console.log(Math.abs(diff));
+      }
+
+      if (diff < 15) {
         alert('You can not delete event earlier than 15 minutes');
         return;
       } else {
@@ -56,7 +72,7 @@ const Event = ({
   };
 
   return (
-    <div style={eventStyle} className="event" onPointerEnter={handleClick}>
+    <div style={eventStyle} className="event" onClick={handleClick}>
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
       {isShowDeleteEvent ? (

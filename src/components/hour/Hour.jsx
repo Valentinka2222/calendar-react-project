@@ -14,7 +14,7 @@ const Hour = ({
 }) => {
   const handleClick = e => {
     console.log(dataDay);
-    setIsHiddenModal(!isHiddenModal);
+    setIsHiddenModal(true);
 
     const time = Number(e.target.dataset.time);
     let createDateStartEvent =
