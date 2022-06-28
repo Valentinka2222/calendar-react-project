@@ -53,9 +53,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     }
     getEventList().then(eventsList => {
       const sameEvent = eventsList.some(
-        el =>
-          String(moment(el.dateFrom).format('HH:mm')) ===
-          String(moment(eventData.dateFrom).format('HH:mm')),
+        el => String(moment(el.dateFrom)) === String(moment(eventData.dateFrom)),
       );
       console.log(sameEvent);
       if (sameEvent === true) {
