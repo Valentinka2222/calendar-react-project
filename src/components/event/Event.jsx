@@ -45,8 +45,8 @@ const Event = ({
     e.stopPropagation();
     setIsHiddenModal(false);
 
-    return hourEvents.map(({ id, startTime }) => {
-      if (Math.abs(Number(moment().format('MM')) - Number(startTime.slice(3, 5))) < 15) {
+    return hourEvents.map(({ id, startTime, dateFrom }) => {
+      if (Number(moment().format('mm')) - Number(moment(dateFrom)) < 15) {
         alert('You can not delete event earlier than 15 minutes');
         return;
       } else {

@@ -14,11 +14,11 @@ const Hour = ({
 }) => {
   const handleClick = e => {
     console.log(dataDay);
-    setIsHiddenModal(true);
+    setIsHiddenModal(!isHiddenModal);
 
     const time = Number(e.target.dataset.time);
     let createDateStartEvent =
-      new Date().toISOString().slice(0, 8) +
+      moment().format('YYYY-MM-') +
       formatMins(Number(dataDay)) +
       'T' +
       formatMins(Number(time) - 1) +

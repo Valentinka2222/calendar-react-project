@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Header from './components/header/Header.jsx';
@@ -8,59 +8,38 @@ import { formatMins } from './utils/dateUtils.js';
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 
 import './common.scss';
+import moment from 'moment';
 
 const App = () => {
-  const currentDate = new Date();
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState();
   const [updatedEvent, setUpdatedEvent] = useState({
-    date: currentDate.toISOString().slice(0, 10),
-    startTime: currentDate.getHours() + ':' + formatMins(currentDate.getMinutes()),
-    endTime: currentDate.getHours() + 1 + ':' + formatMins(currentDate.getMinutes()),
-    dateFrom: new Date(
-      currentDate.toISOString().slice(0, 10) +
-        'T' +
-        currentDate.getHours() +
-        ':' +
-        formatMins(currentDate.getMinutes()),
-    ),
-    //updatedEvent.date
-    dateTo: new Date(
-      currentDate.toISOString().slice(0, 10) +
-        'T' +
-        (currentDate.getHours() + 1) +
-        ':' +
-        formatMins(currentDate.getMinutes()),
-    ),
+    date: '',
+    startTime: '',
+    endTime: '',
+    dateFrom: '',
+    dateTo: '',
   });
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
-  };
-  const changeValue = newDate => {
-    console.log(newDate.slice(0, 10));
     setUpdatedEvent({
-      date: String(newDate.slice(0, 10)),
-      startTime:
-        formatMins(new Date(newDate).getHours()) + ':' + formatMins(new Date(newDate).getMinutes()),
-      endTime:
-        formatMins(new Date(newDate).getHours() + 1) +
-        ':' +
-        formatMins(new Date(newDate).getMinutes()),
-      dateFrom: new Date(
-        String(newDate.slice(0, 10)) +
-          ' ' +
-          formatMins(new Date(newDate).getHours()) +
-          ':' +
-          formatMins(new Date(newDate).getMinutes()),
-      ),
-      dateTo: new Date(
-        String(newDate.slice(0, 10)) +
-          ' ' +
-          formatMins(new Date(newDate).getHours() + 1) +
-          ':' +
-          formatMins(new Date(newDate).getMinutes()),
-      ),
+      date: moment().format('YYYY-MM-DD'),
+      startTime: moment().format('HH:mm'),
+      endTime: moment().add(1, 'hour').format('HH:mm'),
+      dateFrom: moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm'),
+      dateTo: moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'hour').format('HH:mm'),
+    });
+  };
+
+  const changeValue = newDate => {
+    setUpdatedEvent({
+      date: moment(newDate).format('YYYY-MM-DD'),
+      startTime: moment(newDate).format('HH:mm'),
+      endTime: moment(newDate).add(1, 'hour').format('HH:mm'),
+      dateFrom: moment(newDate).format('YYYY-MM-DD') + ' ' + moment(newDate).format('HH:mm'),
+      dateTo:
+        moment(newDate).format('YYYY-MM-DD') + ' ' + moment(newDate).add(1, 'hour').format('HH:mm'),
     });
   };
 
@@ -80,7 +59,7 @@ const App = () => {
     );
   };
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-  console.log(currentDate.getHours());
+
   return (
     <>
       <Header

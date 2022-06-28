@@ -9,14 +9,21 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   const handleChange = event => {
     const { name, value } = event.target;
     const { date, startTime, endTime } = updatedEvent;
-    const startTimeEvent = date + ' ' + startTime;
-    const endTimeEvent = date + ' ' + endTime;
-
+    let startTimeEvent;
+    let endTimeEvent;
+    if (event && name === 'startTime') {
+      startTimeEvent = date + ' ' + event.target.value;
+      endTimeEvent = date + ' ' + endTime;
+    }
+    if (event && name === 'endTime') {
+      startTimeEvent = date + ' ' + startTime;
+      endTimeEvent = date + ' ' + event.target.value;
+    }
     setUpdatedEvent(prevState => ({
       ...prevState,
       [name]: value,
-      dateFrom: new Date(startTimeEvent),
-      dateTo: new Date(endTimeEvent),
+      dateFrom: startTimeEvent,
+      dateTo: endTimeEvent,
     }));
   };
   useEffect(() => {
@@ -25,14 +32,16 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     });
   }, []);
   const handleSubmit = (event, eventData) => {
-    event.preventDefault();
+    console.log(moment(eventData.dateFrom).format('DD'));
     if (
       eventData.startTime === eventData.endTime ||
       Number(eventData.endTime.slice(0, 2)) < Number(eventData.startTime.slice(0, 2))
     ) {
       alert('Please select another end time');
       return;
-    } else if (eventData.dateFrom.getDate() !== eventData.dateTo.getDate()) {
+    } else if (
+      moment(eventData.dateFrom).format('DD') !== moment(eventData.dateFrom).format('DD')
+    ) {
       alert('The event must take place within one day');
       return;
     } else if (
@@ -45,10 +54,8 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     getEventList().then(eventsList => {
       const sameEvent = eventsList.some(
         el =>
-          String(moment(el.dateFrom).format('YYYY MM DD HH:mm')) ===
-            String(moment(eventData.dateFrom).format('YYYY MM DD HH:mm')) &&
-          String(moment(el.dateTo).format('YYYY MM DD HH:mm')) ===
-            String(moment(el.dateTo).format('YYYY MM DD HH:mm')),
+          String(moment(el.dateFrom).format('HH:mm')) ===
+          String(moment(eventData.dateFrom).format('HH:mm')),
       );
       console.log(sameEvent);
       if (sameEvent === true) {
@@ -58,7 +65,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
         fetchCreateEvent(eventData).then(() => fetchEvents(setEvents));
       }
     });
-
+    event.preventDefault();
     event.target.reset();
   };
 
