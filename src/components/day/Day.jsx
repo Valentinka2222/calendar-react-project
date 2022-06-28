@@ -8,7 +8,6 @@ import './day.scss';
 
 const Day = ({
   changeValue,
-
   setIsHiddenModal,
   isHiddenModal,
   dataDay,

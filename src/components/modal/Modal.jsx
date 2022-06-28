@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
 import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
 import { getEventList } from '../../gateway/eventGateAway.js';
+
 import './modal.scss';
 
 const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isHiddenModal }) => {
@@ -32,7 +34,6 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     });
   }, []);
   const handleSubmit = (event, eventData) => {
-    console.log(moment(eventData.dateFrom).format('DD'));
     if (
       eventData.startTime === eventData.endTime ||
       Number(eventData.endTime.slice(0, 2)) < Number(eventData.startTime.slice(0, 2))
@@ -96,9 +97,9 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
               />
               <input
                 onChange={handleChange}
+                step="900"
                 value={updatedEvent.startTime}
                 type="time"
-                step="900"
                 name="startTime"
                 className="event-form__field"
               />

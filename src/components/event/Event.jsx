@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { formatDiffMins } from '../../utils/dateUtils';
-import { deleteEvent, fetchEvents } from '../../gateway/eventGateAway';
-import './event.scss';
-import '../../common.scss';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+import { deleteEvent, fetchEvents } from '../../gateway/eventGateAway';
+
+import './event.scss';
+import '../../common.scss';
+
 const Event = ({
   setIsHiddenModal,
-
   height,
   marginTop,
   title,
@@ -53,9 +53,10 @@ const Event = ({
     return hourEvents.map(({ id, date, dateFrom }) => {
       let start = moment().format('YYYY/MM/DD HH:mm');
       let diff = moment
-        .duration(moment(start, 'YYYY/MM/DD HH:mm').diff(moment(dateFrom, 'YYYY/MM/DD HH:mm')))
+        .duration(moment(dateFrom, 'YYYY/MM/DD HH:mm').diff(moment(start, 'YYYY/MM/DD HH:mm')))
         .asHours();
-      if (Math.abs(diff) <= 0.25 && moment().format('YYYY-MM-DD') === date) {
+      if (diff <= 0.25 && diff > 0 && moment().format('YYYY-MM-DD') === date) {
+        console.log(diff);
         alert('You can not delete event earlier than 15 minutes');
         return;
       } else {
