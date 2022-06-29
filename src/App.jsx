@@ -33,7 +33,6 @@ const App = () => {
   };
 
   const changeValue = newDate => {
-    console.log(newDate);
     setUpdatedEvent({
       date: moment(newDate).format('YYYY-MM-DD'),
       startTime: moment(newDate).format('HH:mm'),
@@ -43,7 +42,7 @@ const App = () => {
         moment(newDate).format('YYYY-MM-DD') + ' ' + moment(newDate).add(1, 'hour').format('HH:mm'),
     });
   };
-  console.log(updatedEvent);
+
   const handleCurrentWeek = () => {
     setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
   };
