@@ -10,7 +10,6 @@ import './modal.scss';
 const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isHiddenModal }) => {
   const handleChange = event => {
     const { name, value } = event.target;
-
     const { date, startTime, endTime } = updatedEvent;
     let startTimeEvent;
     let endTimeEvent;
@@ -36,39 +35,29 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     });
   }, []);
   const handleSubmit = (event, eventData) => {
-    if (
-      String(eventData.endTime.slice(3, 5)) !== '00' &&
-      Number(eventData.endTime.slice(3, 5)) % 15 !== 0
-    ) {
+    const { endTime, startTime, dateFrom } = eventData;
+    if (String(endTime.slice(3, 5)) !== '00' && Number(endTime.slice(3, 5)) % 15 !== 0) {
+      alert('Time must be a multiple of 15 minutes');
+      return;
+    } else if (Number(startTime.slice(3, 5)) % 15 !== 0 && String(startTime.slice(3, 5)) !== '00') {
       alert('Time must be a multiple of 15 minutes');
       return;
     } else if (
-      Number(eventData.startTime.slice(3, 5)) % 15 !== 0 &&
-      String(eventData.startTime.slice(3, 5)) !== '00'
-    ) {
-      alert('Time must be a multiple of 15 minutes');
-      return;
-    } else if (
-      eventData.startTime === eventData.endTime ||
-      Number(eventData.endTime.slice(0, 2)) < Number(eventData.startTime.slice(0, 2))
+      startTime === endTime ||
+      Number(endTime.slice(0, 2)) < Number(startTime.slice(0, 2))
     ) {
       alert('Please select another end time');
       return;
-    } else if (
-      moment(eventData.dateFrom).format('DD') !== moment(eventData.dateFrom).format('DD')
-    ) {
+    } else if (moment(dateFrom).format('DD') !== moment(dateFrom).format('DD')) {
       alert('The event must take place within one day');
       return;
-    } else if (
-      Number(eventData.endTime.slice(0, 2)) - Number(eventData.startTime.slice(0, 2)) >
-      6
-    ) {
+    } else if (Number(endTime.slice(0, 2)) - Number(startTime.slice(0, 2)) > 6) {
       alert('The event must last more than 6 hours');
       return;
     }
     getEventList().then(eventsList => {
       const sameEvent = eventsList.some(
-        el => String(moment(el.dateFrom)) === String(moment(eventData.dateFrom)),
+        el => String(moment(el.dateFrom)) === String(moment(dateFrom)),
       );
       console.log(sameEvent);
       if (sameEvent === true) {
