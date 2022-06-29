@@ -1,6 +1,6 @@
 # calendar-react-project
 
-<img src="./img/calendar.jpg" alt='Calendar'>
+<img src="img/calendar.jpg" alt='Calendar'>
 
 <ol>
 <h2>Getting Started</h2>
