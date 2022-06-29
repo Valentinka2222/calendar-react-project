@@ -10,16 +10,18 @@ import './modal.scss';
 const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isHiddenModal }) => {
   const handleChange = event => {
     const { name, value } = event.target;
+
     const { date, startTime, endTime } = updatedEvent;
     let startTimeEvent;
     let endTimeEvent;
+
     if (event && name === 'startTime') {
-      startTimeEvent = date + ' ' + event.target.value;
+      startTimeEvent = date + ' ' + value;
       endTimeEvent = date + ' ' + endTime;
     }
     if (event && name === 'endTime') {
       startTimeEvent = date + ' ' + startTime;
-      endTimeEvent = date + ' ' + event.target.value;
+      endTimeEvent = date + ' ' + value;
     }
     setUpdatedEvent(prevState => ({
       ...prevState,
@@ -35,6 +37,18 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   }, []);
   const handleSubmit = (event, eventData) => {
     if (
+      String(eventData.endTime.slice(3, 5)) !== '00' &&
+      Number(eventData.endTime.slice(3, 5)) % 15 !== 0
+    ) {
+      alert('Time must be a multiple of 15 minutes');
+      return;
+    } else if (
+      Number(eventData.startTime.slice(3, 5)) % 15 !== 0 &&
+      String(eventData.startTime.slice(3, 5)) !== '00'
+    ) {
+      alert('Time must be a multiple of 15 minutes');
+      return;
+    } else if (
       eventData.startTime === eventData.endTime ||
       Number(eventData.endTime.slice(0, 2)) < Number(eventData.startTime.slice(0, 2))
     ) {
@@ -89,6 +103,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
             />
             <div className="event-form__time">
               <input
+                step="1"
                 onChange={handleChange}
                 value={updatedEvent.date}
                 type="date"
@@ -96,20 +111,18 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
                 className="event-form__field"
               />
               <input
-                onChange={handleChange}
-                step="900"
-                value={updatedEvent.startTime}
                 type="time"
+                onChange={handleChange}
+                value={updatedEvent.startTime}
                 name="startTime"
                 className="event-form__field"
               />
               <span>-</span>
               <input
+                type="time"
+                name="endTime"
                 onChange={handleChange}
                 value={updatedEvent.endTime}
-                type="time"
-                step="900"
-                name="endTime"
                 className="event-form__field"
               />
             </div>

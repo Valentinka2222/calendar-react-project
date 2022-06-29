@@ -55,8 +55,8 @@ const Event = ({
       let diff = moment
         .duration(moment(dateFrom, 'YYYY/MM/DD HH:mm').diff(moment(start, 'YYYY/MM/DD HH:mm')))
         .asHours();
+
       if (diff <= 0.25 && diff > 0 && moment().format('YYYY-MM-DD') === date) {
-        console.log(diff);
         alert('You can not delete event earlier than 15 minutes');
         return;
       } else {
