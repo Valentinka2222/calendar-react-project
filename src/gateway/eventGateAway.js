@@ -6,7 +6,7 @@ export const getEventList = () => {
       if (res.ok) {
         return res.json();
       } else {
-        throw new Error("Couldn't get data!");
+        throw new Error("Internal Server Error. Can't display events");
       }
     })
     .catch(error => console.log(error));
@@ -16,7 +16,7 @@ export const deleteEvent = id => {
     method: 'DELETE',
   }).then(response => {
     if (!response.ok) {
-      throw new Error("Couldn't delete data!");
+      throw new Error("Internal Server Error. Can't display events");
     }
   });
 };
@@ -29,7 +29,7 @@ export const fetchCreateEvent = formData => {
     body: JSON.stringify(formData),
   }).then(response => {
     if (!response.ok) {
-      throw new Error("Couldn't create event");
+      throw new Error("Internal Server Error. Can't display events");
     }
   });
 };
