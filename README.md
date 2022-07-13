@@ -4,14 +4,13 @@
 
 <lu style="font-size:20px" ><b>The tech stack is:</b>
 
-<li ><a href="https://nodejs.org/en/" target="blank">Node</a></li><br>
-<li ><a href="https://www.npmjs.com/" target="blank">Npm</a></li><br>
-<li ><a href="https://git-scm.com/" target="blank">Git</a></li><br>
+<li ><a href="https://nodejs.org/en/" target="blank">Node</a></li>
+<li ><a href="https://www.npmjs.com/" target="blank">Npm</a></li>
+<li ><a href="https://git-scm.com/" target="blank">Git</a></li>
 <li ><a href='https://ru.reactjs.org'target="blank">React</a></li>
 <li style="font-size:16px" ><a href="https://en.wikipedia.org/wiki/HTML5" target="blank">HTML5</a></li>
 <li style="font-size:16px" ><a href="https://www.npmjs.com/package/eslint" target="blank">Eslint</a></li>
-<li style="font-size:16px" ><a href="https://www.npmjs.com/package/eslint" target="blank">Eslint</a></li>
-<li style="font-size:16px" ><a href="hhttps://babeljs.io/" target="blank">Babel</a></li>
+<li style="font-size:16px" ><a href="https://babeljs.io/" target="blank">Babel</a></li>
 <li style="font-size:16px" ><a href='https://webpack.js.org/'target="blank">Webpack</a></li>
 <li ><a href="https://sass-lang.com/" target="blank">Sass(Scss)</a></li>
 <li ><a href="https://en.bem.info/methodology/" target="blank">BEM methodology</a></li><br>
