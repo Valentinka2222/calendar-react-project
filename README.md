@@ -32,4 +32,4 @@
 
 <lu  style="font-size:20px" padding-top="10px" ><b>Author</b></lu>
 
-<li>Starkova Valentina</li>
+<li>Starkova Valentyna</li>
