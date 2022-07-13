@@ -1,6 +1,4 @@
-# calendar-react-project
-
-<a href='https://dynamic-cheesecake-0241be.netlify.app/'>Link</a>
+<h1><a href='https://dynamic-cheesecake-0241be.netlify.app/'>calendar-react-project</a></h1>
 
 <img src="src/img/calendar.jpg" height='150px' width='150px' alt='Calendar'/>
 
