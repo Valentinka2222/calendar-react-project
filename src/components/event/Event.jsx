@@ -79,10 +79,13 @@ const Event = ({
   );
 };
 Event.propTypes = {
-  newHeight: PropTypes.string,
-  eventStyle: PropTypes.object,
-  handleClick: PropTypes.func,
-  handleDeleteEvent: PropTypes.func,
+  setIsHiddenModal: PropTypes.func,
+  height: PropTypes.number,
+  marginTop: PropTypes.string,
+  title: PropTypes.string,
+  time: PropTypes.string,
+  hourEvents: PropTypes.array,
+  setUpdateEvents: PropTypes.func,
 };
 Event.defaultProps = {
   style: {

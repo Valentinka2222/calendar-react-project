@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Header from './components/header/Header.jsx';
@@ -85,15 +84,6 @@ const App = () => {
       />
     </>
   );
-};
-App.propTypes = {
-  handleCurrentWeek: PropTypes.func,
-  handlePreviousWeek: PropTypes.func,
-  handlePreviousWeek: PropTypes.func,
-  weekDates: PropTypes.array,
-};
-App.defaultProps = {
-  weekStartDate: new Date(),
 };
 
 export default App;

@@ -30,6 +30,9 @@ const Header = ({ handleCurrentWeek, handleNextWeek, handlePreviousWeek, isShowM
 };
 Header.propTypes = {
   isShowEventList: PropTypes.bool,
+  handleCurrentWeek: PropTypes.func,
+  handleNextWeek: PropTypes.func,
+  handlePreviousWeek: PropTypes.func,
 };
 
 export default Header;

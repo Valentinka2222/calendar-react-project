@@ -37,8 +37,12 @@ const Week = ({
   );
 };
 Week.propTypes = {
-  dayEvents: PropTypes.array,
-  dayEnd: PropTypes.number,
+  changeValue: PropTypes.func,
+  setIsHiddenModal: PropTypes.func,
+  isHiddenModal: PropTypes.bool,
+  weekDates: PropTypes.array,
+  events: PropTypes.array,
+  setUpdateEvents: PropTypes.func,
 };
 
 export default Week;

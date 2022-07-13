@@ -11,7 +11,6 @@ const Calendar = ({
   setIsHiddenModal,
   isHiddenModal,
   changeValue,
-
   weekDates,
   events,
   setUpdateEvents,
@@ -37,8 +36,12 @@ const Calendar = ({
 };
 
 Calendar.propTypes = {
-  getEventList: PropTypes.func,
+  setIsHiddenModal: PropTypes.func,
+  isHiddenModal: PropTypes.bool,
+  changeValue: PropTypes.func,
+  weekDates: PropTypes.array,
   events: PropTypes.array,
+  setUpdateEvents: PropTypes.func,
 };
 
 export default Calendar;

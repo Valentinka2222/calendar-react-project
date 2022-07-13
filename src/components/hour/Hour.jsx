@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { formatMins } from '../../utils/dateUtils';
 
@@ -48,6 +49,16 @@ const Hour = ({
       })}
     </div>
   );
+};
+Hour.propTypes = {
+  dataHour: PropTypes.number,
+  setUpdateEvents: PropTypes.func,
+  changeValue: PropTypes.func,
+  isHiddenModal: PropTypes.bool,
+  dataDay: PropTypes.number,
+  hourEvents: PropTypes.array,
+  changeValue: PropTypes.func,
+  setIsHiddenModal: PropTypes.func,
 };
 
 export default Hour;

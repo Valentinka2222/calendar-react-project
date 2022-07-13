@@ -1,2 +1,0 @@
-.event{position:absolute;width:80%;background-color:#6495ed;z-index:1;border-radius:8px;padding:8px;color:#fff}.event__title{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:8px}.event:hover{font-weight:bold;background-color:red}.delete-event-btn{height:10vh;width:20vw;margin:auto;margin-left:10px;cursor:pointer;border:none}
-/*# sourceMappingURL=event.min.css.map */

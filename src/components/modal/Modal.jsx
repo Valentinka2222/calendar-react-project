@@ -64,7 +64,11 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
         alert('You have event in this time!');
         return;
       } else {
-        fetchCreateEvent(eventData).then(() => fetchEvents(setEvents));
+        fetchCreateEvent(eventData).then(() =>
+          getEventList().then(eventsList => {
+            setEvents(eventsList);
+          }),
+        );
       }
     });
     event.preventDefault();
@@ -132,20 +136,11 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
 };
 
 Modal.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  date: PropTypes.string,
-  startTime: PropTypes.string,
-  endTime: PropTypes.string,
-  dateTo: PropTypes.string,
-  dateFrom: PropTypes.string,
-  startTimeEvent: PropTypes.string,
-  endTimeEvent: PropTypes.string,
-  createEvent: PropTypes.func,
-  fetchCreateEvent: PropTypes.func,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  handleClick: PropTypes.func,
+  setIsHiddenModal: PropTypes.func,
+  updatedEvent: PropTypes.object,
+  setUpdatedEvent: PropTypes.func,
+  setEvents: PropTypes.func,
+  isHiddenModal: PropTypes.bool,
 };
 
 export default Modal;

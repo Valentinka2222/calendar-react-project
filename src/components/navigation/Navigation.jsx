@@ -13,24 +13,25 @@ const Navigation = ({ navWeekDates }) => {
       {navWeekDates.map(dayDate => (
         <div key={dayDate} className="calendar__day-label day-label">
           {!isCurrentDay(dayDate) ? (
-            <span className="day-label__day-name">{days[dayDate.getDay()]}</span>
+            <>
+              <span className="day-label__day-name">{days[dayDate.getDay()]}</span>
+              <span className="day-label__day-number">{dayDate.getDate()}</span>
+            </>
           ) : (
-            <span className="day-label__day-name" style={{ color: '#1803fff3' }}>
-              {days[dayDate.getDay()]}
-            </span>
-          )}
-          {!isCurrentDay(dayDate) ? (
-            <span className="day-label__day-number">{dayDate.getDate()}</span>
-          ) : (
-            <span
-              style={{
-                color: 'white',
-                backgroundColor: '#1803fff3',
-              }}
-              className="day-label__day-number"
-            >
-              {dayDate.getDate()}
-            </span>
+            <>
+              <span className="day-label__day-name" style={{ color: '#1803fff3' }}>
+                {days[dayDate.getDay()]}
+              </span>
+              <span
+                style={{
+                  color: 'white',
+                  backgroundColor: '#1803fff3',
+                }}
+                className="day-label__day-number"
+              >
+                {dayDate.getDate()}
+              </span>
+            </>
           )}
         </div>
       ))}
@@ -38,7 +39,7 @@ const Navigation = ({ navWeekDates }) => {
   );
 };
 Navigation.propTypes = {
-  isCurrentDay: PropTypes.func,
+  navWeekDates: PropTypes.array,
 };
 
 export default Navigation;

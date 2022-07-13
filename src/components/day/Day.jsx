@@ -63,9 +63,12 @@ const Day = ({
   );
 };
 Day.propTypes = {
-  hours: PropTypes.array.isRequired,
-  startPosition: PropTypes.number,
-  elemRedLine: PropTypes.element,
+  changeValue: PropTypes.func,
+  setIsHiddenModal: PropTypes.func,
+  isHiddenModal: PropTypes.bool,
+  dataDay: PropTypes.number,
+  dayEvents: PropTypes.array,
+  setUpdateEvents: PropTypes.func,
 };
 Day.defaultProps = {
   hours: Array(24)
