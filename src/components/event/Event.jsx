@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-import { deleteEvent, fetchEvents } from '../../gateway/eventGateAway';
+import { deleteEvent, getEventList } from '../../gateway/eventGateAway';
 
 import './event.scss';
 import '../../common.scss';
@@ -60,7 +60,7 @@ const Event = ({
         alert('You can not delete event earlier than 15 minutes');
         return;
       } else {
-        deleteEvent(id).then(() => fetchEvents(setUpdateEvents));
+        deleteEvent(id).then(() => getEventList().then(eventsList => setUpdateEvents(eventsList)));
       }
     });
   };

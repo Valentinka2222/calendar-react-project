@@ -38,12 +38,11 @@ const Day = ({
     <div className="calendar__day" data-day={dataDay}>
       {Number(moment().local().format('DD')) === dataDay ? elemRedLine : null}
       {hours.map(hour => {
-        const hourEvents = dayEvents.filter(event => {
-          return (
+        const hourEvents = dayEvents.filter(
+          event =>
             Number(moment(event.dateFrom).format('HH')) === hour &&
-            Number(moment(event.dateFrom).format('DD')) === dataDay
-          );
-        });
+            Number(moment(event.dateFrom).format('DD')) === dataDay,
+        );
 
         return (
           <Hour

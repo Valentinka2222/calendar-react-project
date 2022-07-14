@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { fetchCreateEvent, fetchEvents } from '../../gateway/eventGateAway';
+import { fetchCreateEvent } from '../../gateway/eventGateAway';
 import { getEventList } from '../../gateway/eventGateAway.js';
 
 import './modal.scss';
@@ -30,9 +30,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     }));
   };
   useEffect(() => {
-    getEventList().then(eventsList => {
-      setEvents(eventsList);
-    });
+    getEventList().then(eventsList => setEvents(eventsList));
   }, []);
   const handleSubmit = (event, eventData) => {
     const { endTime, startTime, dateFrom } = eventData;
@@ -59,15 +57,12 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
       const sameEvent = eventsList.some(
         el => String(moment(el.dateFrom)) === String(moment(dateFrom)),
       );
-      console.log(sameEvent);
       if (sameEvent === true) {
         alert('You have event in this time!');
         return;
       } else {
         fetchCreateEvent(eventData).then(() =>
-          getEventList().then(eventsList => {
-            setEvents(eventsList);
-          }),
+          getEventList().then(eventsList => setEvents(eventsList)),
         );
       }
     });
@@ -75,9 +70,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     event.target.reset();
   };
 
-  const handleShowModal = () => {
-    setIsHiddenModal(false);
-  };
+  const handleShowModal = () => setIsHiddenModal(false);
 
   return (
     <div className={!isHiddenModal ? 'modal overlay hidden' : 'modal overlay'}>

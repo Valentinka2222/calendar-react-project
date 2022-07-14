@@ -31,7 +31,7 @@ const App = () => {
     });
   };
 
-  const changeValue = newDate => {
+  const changeValue = newDate =>
     setUpdatedEvent({
       date: moment(newDate).format('YYYY-MM-DD'),
       startTime: moment(newDate).format('HH:mm'),
@@ -40,23 +40,21 @@ const App = () => {
       dateTo:
         moment(newDate).format('YYYY-MM-DD') + ' ' + moment(newDate).add(1, 'hour').format('HH:mm'),
     });
-  };
 
-  const handleCurrentWeek = () => {
-    setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
-  };
-  const handleNextWeek = () => {
+  const handleCurrentWeek = () => setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
+
+  const handleNextWeek = () =>
     setWeekStartDate(
       weekStartDate =>
         (weekStartDate = new Date(weekStartDate.setDate(weekStartDate.getDate() + 7))),
     );
-  };
-  const handlePreviousWeek = () => {
+
+  const handlePreviousWeek = () =>
     setWeekStartDate(
       weekStartDate =>
         (weekStartDate = new Date(weekStartDate.setDate(weekStartDate.getDate() - 7))),
     );
-  };
+
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   return (

@@ -33,8 +33,3 @@ export const fetchCreateEvent = formData => {
     }
   });
 };
-export const fetchEvents = fn => {
-  getEventList().then(eventsList => {
-    fn(eventsList);
-  });
-};
