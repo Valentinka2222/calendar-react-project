@@ -10,6 +10,7 @@ import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 import './common.scss';
 
 const App = () => {
+  const currentDate = moment();
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState();
