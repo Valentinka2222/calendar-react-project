@@ -20,7 +20,7 @@ export const deleteEvent = id => {
     }
   });
 };
-export const fetchCreateEvent = formData => {
+export const сreateEvent = formData => {
   return fetch(`${baseUrl}/`, {
     method: 'POST',
     headers: {

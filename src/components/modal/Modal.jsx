@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { fetchCreateEvent } from '../../gateway/eventGateAway';
+import { сreateEvent } from '../../gateway/eventGateAway';
 import { getEventList } from '../../gateway/eventGateAway.js';
 
 import './modal.scss';
@@ -35,7 +35,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   }, []);
   const handleSubmit = (event, eventData) => {
     const { endTime, startTime, dateFrom } = eventData;
-    console.log(dateFrom);
+
     if (String(endTime.slice(3, 5)) !== '00' && Number(endTime.slice(3, 5)) % 15 !== 0) {
       alert('Time must be a multiple of 15 minutes');
       return;
@@ -61,9 +61,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
         alert('You have event in this time!');
         return;
       } else {
-        fetchCreateEvent(eventData).then(() =>
-          getEventList().then(eventsList => setEvents(eventsList)),
-        );
+        сreateEvent(eventData).then(() => getEventList().then(eventsList => setEvents(eventsList)));
       }
     });
     event.preventDefault();

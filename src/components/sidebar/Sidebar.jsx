@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './sidebar.scss';
 
@@ -17,12 +16,6 @@ const Sidebar = () => {
       ))}
     </div>
   );
-};
-
-Sidebar.defaultProps = {
-  hours: Array(24)
-    .fill()
-    .map((val, index) => index),
 };
 
 export default Sidebar;
