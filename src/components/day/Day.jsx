@@ -6,14 +6,7 @@ import Hour from '../hour/Hour';
 
 import './day.scss';
 
-const Day = ({
-  changeValue,
-  setIsHiddenModal,
-  isHiddenModal,
-  dataDay,
-  dayEvents,
-  setUpdateEvents,
-}) => {
+const Day = ({ changeValue, setIsHiddenModal, dataDay, dayEvents, setUpdateEvents }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -47,7 +40,6 @@ const Day = ({
         return (
           <Hour
             setIsHiddenModal={setIsHiddenModal}
-            isHiddenModal={isHiddenModal}
             changeValue={changeValue}
             dataDay={dataDay}
             setUpdateEvents={setUpdateEvents}
@@ -64,15 +56,9 @@ const Day = ({
 Day.propTypes = {
   changeValue: PropTypes.func,
   setIsHiddenModal: PropTypes.func,
-  isHiddenModal: PropTypes.bool,
   dataDay: PropTypes.number,
   dayEvents: PropTypes.array,
   setUpdateEvents: PropTypes.func,
-};
-Day.defaultProps = {
-  hours: Array(24)
-    .fill()
-    .map((val, index) => index),
 };
 
 export default Day;

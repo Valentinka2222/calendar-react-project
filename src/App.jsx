@@ -10,26 +10,18 @@ import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 import './common.scss';
 
 const App = () => {
-  const currentDate = moment();
   const [events, setEvents] = useState([]);
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState();
   const [updatedEvent, setUpdatedEvent] = useState({
-    date: '',
-    startTime: '',
-    endTime: '',
-    dateFrom: '',
-    dateTo: '',
+    date: moment().format('YYYY-MM-DD'),
+    startTime: moment().format('hh:mm'),
+    endTime: moment().add(1, 'hour').format('hh:mm'),
+    dateFrom: moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm'),
+    dateTo: moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'hour').format('HH:mm'),
   });
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
-    setUpdatedEvent({
-      date: moment().format('YYYY-MM-DD'),
-      startTime: moment().format('HH:mm'),
-      endTime: moment().add(1, 'hour').format('HH:mm'),
-      dateFrom: moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm'),
-      dateTo: moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'hour').format('HH:mm'),
-    });
   };
 
   const changeValue = newDate =>
@@ -79,7 +71,6 @@ const App = () => {
         events={events}
         setUpdateEvents={setEvents}
         setIsHiddenModal={setIsHiddenModal}
-        isHiddenModal={isHiddenModal}
       />
     </>
   );

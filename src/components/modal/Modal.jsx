@@ -20,6 +20,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     }
     if (event && name === 'endTime') {
       startTimeEvent = date + ' ' + startTime;
+      console.log(startTime);
       endTimeEvent = date + ' ' + value;
     }
     setUpdatedEvent(prevState => ({
@@ -34,6 +35,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   }, []);
   const handleSubmit = (event, eventData) => {
     const { endTime, startTime, dateFrom } = eventData;
+    console.log(dateFrom);
     if (String(endTime.slice(3, 5)) !== '00' && Number(endTime.slice(3, 5)) % 15 !== 0) {
       alert('Time must be a multiple of 15 minutes');
       return;
@@ -54,9 +56,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
       return;
     }
     getEventList().then(eventsList => {
-      const sameEvent = eventsList.some(
-        el => String(moment(el.dateFrom)) === String(moment(dateFrom)),
-      );
+      const sameEvent = eventsList.some(el => el.dateFrom === dateFrom);
       if (sameEvent === true) {
         alert('You have event in this time!');
         return;
@@ -70,7 +70,9 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     event.target.reset();
   };
 
-  const handleShowModal = () => setIsHiddenModal(false);
+  const handleShowModal = () => {
+    setIsHiddenModal(false);
+  };
 
   return (
     <div className={!isHiddenModal ? 'modal overlay hidden' : 'modal overlay'}>

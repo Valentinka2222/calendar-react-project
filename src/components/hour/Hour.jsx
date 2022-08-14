@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
@@ -21,7 +21,7 @@ const Hour = ({
     const createDateStartEvent =
       moment().format('YYYY-MM-') +
       formatMins(Number(dataDay)) +
-      'T' +
+      ' ' +
       formatMins(Number(e.target.dataset.time) - 1) +
       ':00';
 
@@ -54,7 +54,6 @@ Hour.propTypes = {
   dataHour: PropTypes.number,
   setUpdateEvents: PropTypes.func,
   changeValue: PropTypes.func,
-  isHiddenModal: PropTypes.bool,
   dataDay: PropTypes.number,
   hourEvents: PropTypes.array,
   changeValue: PropTypes.func,

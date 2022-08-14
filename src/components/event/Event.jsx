@@ -16,8 +16,6 @@ const Event = ({
   hourEvents,
   setUpdateEvents,
 }) => {
-  let newHeight;
-
   const style = {
     display: 'flex',
     alignItems: 'center',
@@ -27,27 +25,19 @@ const Event = ({
     marginTop: '20%',
     paddingLeft: '25%',
   };
-  if (height < Number('15%')) {
-    newHeight = '15%';
-    height = newHeight;
-    return newHeight;
-  }
+  const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
   const eventStyle = {
-    height: newHeight,
+    height: height,
     marginTop,
   };
-  const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
-
   const handleClick = e => {
     e.stopPropagation();
     setIsHiddenModal(false);
-
     setIsShowDeleteEvent(!isShowDeleteEvent);
   };
 
   const handleDeleteEvent = e => {
     e.stopPropagation();
-
     setIsHiddenModal(false);
 
     return hourEvents.map(({ id, date, dateFrom }) => {
@@ -66,9 +56,10 @@ const Event = ({
   };
 
   return (
-    <div style={eventStyle} className="event" onClick={handleClick}>
+    <div className={`event ${eventStyle}`} onClick={handleClick}>
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
+
       {isShowDeleteEvent ? (
         <button onClick={handleDeleteEvent} className=" delete-event-btn" style={style}>
           <i className="fas fa-trash-alt"></i>
