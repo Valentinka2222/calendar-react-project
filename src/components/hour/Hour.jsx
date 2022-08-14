@@ -26,7 +26,6 @@ const Hour = ({
       ':00';
 
     changeValue(createDateStartEvent);
-
     return createDateStartEvent;
   };
 

@@ -78,16 +78,5 @@ Event.propTypes = {
   hourEvents: PropTypes.array,
   setUpdateEvents: PropTypes.func,
 };
-Event.defaultProps = {
-  style: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 'auto',
-    marginLeft: '48%',
-    marginTop: '20%',
-    paddingLeft: '25%',
-  },
-};
 
 export default Event;
