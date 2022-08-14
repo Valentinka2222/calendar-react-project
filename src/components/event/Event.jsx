@@ -16,15 +16,6 @@ const Event = ({
   hourEvents,
   setUpdateEvents,
 }) => {
-  const style = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 'auto',
-    marginLeft: '48%',
-    marginTop: '20%',
-    paddingLeft: '25%',
-  };
   const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
   const eventStyle = {
     height: height,
@@ -61,7 +52,7 @@ const Event = ({
       <div className="event__time">{time}</div>
 
       {isShowDeleteEvent ? (
-        <button onClick={handleDeleteEvent} className=" delete-event-btn" style={style}>
+        <button onClick={handleDeleteEvent} className=" delete-event-btn">
           <i className="fas fa-trash-alt"></i>
           <span style={{ margin: 'auto' }}>Delete event</span>
         </button>

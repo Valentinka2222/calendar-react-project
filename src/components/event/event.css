@@ -6,20 +6,20 @@
   border-radius: 8px;
   padding: 8px;
   color: #fff;
+}
 
-  &__title {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 8px;
-  }
+.event__title {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8px;
+}
 
-  &:hover {
-    font-weight: bold;
-    background-color: red;
-    z-index: 10;
-  }
+.event:hover {
+  font-weight: bold;
+  background-color: red;
+  z-index: 10;
 }
 
 .delete-event-btn {
