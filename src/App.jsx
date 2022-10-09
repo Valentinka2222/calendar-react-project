@@ -14,25 +14,36 @@ const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isHiddenModal, setIsHiddenModal] = useState();
   const [updatedEvent, setUpdatedEvent] = useState({
-    date: moment().format('YYYY-MM-DD'),
-    startTime: moment().format('hh:mm'),
-    endTime: moment().add(1, 'hour').format('hh:mm'),
-    dateFrom: moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm'),
-    dateTo: moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'hour').format('HH:mm'),
+    date: '',
+    startTime: '',
+    endTime: '',
+    dateFrom: '',
+    dateTo: '',
+    title: '',
+    description: '',
   });
   const isShowModal = () => {
     setIsHiddenModal(!isHiddenModal);
+    if (updatedEvent) {
+      setUpdatedEvent(prevState => ({
+        ...prevState,
+        date: moment().format('YYYY-MM-DD'),
+        startTime: moment().format('HH:mm'),
+        endTime: moment().add(1, 'hour').format('HH:mm'),
+      }));
+    }
   };
-
+  console.log(updatedEvent);
   const changeValue = newDate =>
-    setUpdatedEvent({
+    setUpdatedEvent(prevState => ({
+      ...prevState,
       date: moment(newDate).format('YYYY-MM-DD'),
       startTime: moment(newDate).format('HH:mm'),
       endTime: moment(newDate).add(1, 'hour').format('HH:mm'),
       dateFrom: moment(newDate).format('YYYY-MM-DD') + ' ' + moment(newDate).format('HH:mm'),
       dateTo:
         moment(newDate).format('YYYY-MM-DD') + ' ' + moment(newDate).add(1, 'hour').format('HH:mm'),
-    });
+    }));
 
   const handleCurrentWeek = () => setWeekStartDate(weekStartDate => (weekStartDate = new Date()));
 
@@ -59,6 +70,7 @@ const App = () => {
         handleCurrentWeek={handleCurrentWeek}
       />
       <Modal
+        isShowModal={isShowModal}
         setIsHiddenModal={setIsHiddenModal}
         setUpdatedEvent={setUpdatedEvent}
         updatedEvent={updatedEvent}
@@ -69,7 +81,7 @@ const App = () => {
         changeValue={changeValue}
         weekDates={weekDates}
         events={events}
-        setUpdateEvents={setEvents}
+        setEvents={setEvents}
         setIsHiddenModal={setIsHiddenModal}
       />
     </>

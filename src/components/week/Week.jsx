@@ -5,7 +5,7 @@ import Day from '../day/Day';
 
 import './week.scss';
 
-const Week = ({ changeValue, setIsHiddenModal, weekDates, events, setUpdateEvents }) => {
+const Week = ({ changeValue, setIsHiddenModal, weekDates, events, setEvents }) => {
   return (
     <div className="calendar__week">
       {weekDates.map(dayStart => {
@@ -17,7 +17,7 @@ const Week = ({ changeValue, setIsHiddenModal, weekDates, events, setUpdateEvent
           <Day
             setIsHiddenModal={setIsHiddenModal}
             changeValue={changeValue}
-            setUpdateEvents={setUpdateEvents}
+            setEvents={setEvents}
             key={dayStart.getDate()}
             dataDay={dayStart.getDate()}
             dayEvents={dayEvents}
@@ -33,7 +33,7 @@ Week.propTypes = {
   setIsHiddenModal: PropTypes.func,
   weekDates: PropTypes.array,
   events: PropTypes.array,
-  setUpdateEvents: PropTypes.func,
+  setEvents: PropTypes.func,
 };
 
 export default Week;

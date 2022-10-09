@@ -7,15 +7,7 @@ import { deleteEvent, getEventList } from '../../gateway/eventGateAway';
 import './event.scss';
 import '../../common.scss';
 
-const Event = ({
-  setIsHiddenModal,
-  height,
-  marginTop,
-  title,
-  time,
-  hourEvents,
-  setUpdateEvents,
-}) => {
+const Event = ({ setIsHiddenModal, height, marginTop, title, time, hourEvents, setEvents }) => {
   const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
   const eventStyle = {
     height: height,
@@ -41,7 +33,7 @@ const Event = ({
         alert('You can not delete event earlier than 15 minutes');
         return;
       } else {
-        deleteEvent(id).then(() => getEventList().then(eventsList => setUpdateEvents(eventsList)));
+        deleteEvent(id).then(() => getEventList().then(eventsList => setEvents(eventsList)));
       }
     });
   };
@@ -67,7 +59,7 @@ Event.propTypes = {
   title: PropTypes.string,
   time: PropTypes.string,
   hourEvents: PropTypes.array,
-  setUpdateEvents: PropTypes.func,
+  setEvent: PropTypes.func,
 };
 
 export default Event;

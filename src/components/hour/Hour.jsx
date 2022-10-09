@@ -9,7 +9,7 @@ import Event from '../event/Event';
 const Hour = ({
   dataHour,
   hourEvents,
-  setUpdateEvents,
+  setEvents,
   changeValue,
   dataDay,
   setIsHiddenModal,
@@ -36,7 +36,7 @@ const Hour = ({
           <Event
             setIsHiddenModal={setIsHiddenModal}
             isHiddenModal={isHiddenModal}
-            setUpdateEvents={setUpdateEvents}
+            setEvents={setEvents}
             key={id}
             hourEvents={hourEvents}
             height={Number(moment(dateFrom).format('mm')) - Number(moment(dateTo).format('mm'))}
@@ -51,7 +51,7 @@ const Hour = ({
 };
 Hour.propTypes = {
   dataHour: PropTypes.number,
-  setUpdateEvents: PropTypes.func,
+  setUpdateEvent: PropTypes.func,
   changeValue: PropTypes.func,
   dataDay: PropTypes.number,
   hourEvents: PropTypes.array,

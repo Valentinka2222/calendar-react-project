@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-
 import { сreateEvent } from '../../gateway/eventGateAway';
 import { getEventList } from '../../gateway/eventGateAway.js';
-
+import {
+  validatorHaveEvent,
+  validatorMultMin,
+  validatorMultHour,
+  validatorEndTime,
+  validatorEventDuration,
+  validatorEventOneDay,
+} from '../../validators/validators';
 import './modal.scss';
 
 const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isHiddenModal }) => {
   const handleChange = event => {
     const { name, value } = event.target;
+
     const { date, startTime, endTime } = updatedEvent;
     let startTimeEvent;
     let endTimeEvent;
@@ -19,10 +25,10 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
       endTimeEvent = date + ' ' + endTime;
     }
     if (event && name === 'endTime') {
-      startTimeEvent = date + ' ' + startTime;
-      console.log(startTime);
-      endTimeEvent = date + ' ' + value;
+      startTimeEvent = date + ' ' + startTime || date + '' + value;
+      endTimeEvent = date + ' ' + value || date + '' + value;
     }
+
     setUpdatedEvent(prevState => ({
       ...prevState,
       [name]: value,
@@ -35,33 +41,29 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   }, []);
   const handleSubmit = (event, eventData) => {
     const { endTime, startTime, dateFrom } = eventData;
+
     getEventList().then(eventsList => {
-      const sameEvent = eventsList.some(
-        el => moment(dateFrom) >= moment(el.dateFrom) && moment(dateFrom) <= moment(el.dateTo),
-      );
-      if (sameEvent) {
-        alert('You have event in this time!');
-        return;
-      } else {
-        сreateEvent(eventData).then(() => getEventList().then(eventsList => setEvents(eventsList)));
-      }
+      // if (validatorHaveEvent(eventsList, dateFrom)) {
+      //   alert('You have event in this time!');
+      //   return;
+      // } else {
+      сreateEvent(eventData).then(() => getEventList().then(eventsList => setEvents(eventsList)));
+      // }
     });
-    if (String(endTime.slice(3, 5)) !== '00' && Number(endTime.slice(3, 5)) % 15 !== 0) {
+
+    if (validatorMultMin(endTime)) {
       alert('Time must be a multiple of 15 minutes');
       return;
-    } else if (Number(startTime.slice(3, 5)) % 15 !== 0 && String(startTime.slice(3, 5)) !== '00') {
+    } else if (validatorMultHour(startTime)) {
       alert('Time must be a multiple of 15 minutes');
       return;
-    } else if (
-      startTime === endTime ||
-      Number(endTime.slice(0, 2)) < Number(startTime.slice(0, 2))
-    ) {
+    } else if (validatorEndTime(startTime, endTime)) {
       alert('Please select another end time');
       return;
-    } else if (moment(dateFrom).format('DD') !== moment(dateFrom).format('DD')) {
+    } else if (validatorEventOneDay(dateFrom)) {
       alert('The event must take place within one day');
       return;
-    } else if (Number(endTime.slice(0, 2)) - Number(startTime.slice(0, 2)) > 6) {
+    } else if (validatorEventDuration(endTime, startTime)) {
       alert('The event must last more than 6 hours');
       return;
     }
@@ -85,6 +87,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
             <input
               type="text"
               onChange={handleChange}
+              value={updatedEvent.title}
               name="title"
               placeholder="Title"
               className="event-form__field"
@@ -117,6 +120,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
             <textarea
               onChange={handleChange}
               name="description"
+              value={updatedEvent.description}
               placeholder="Description"
               className="event-form__field"
             />
@@ -132,7 +136,7 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
 
 Modal.propTypes = {
   setIsHiddenModal: PropTypes.func,
-  updatedEvent: PropTypes.object,
+
   setUpdatedEvent: PropTypes.func,
   setEvents: PropTypes.func,
   isHiddenModal: PropTypes.bool,
