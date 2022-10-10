@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-
 import { days } from '../../utils/dateUtils.js';
 
 const Navigation = ({ navWeekDates }) => {
@@ -19,13 +18,13 @@ const Navigation = ({ navWeekDates }) => {
             </>
           ) : (
             <>
-              <span className="day-label__day-name" style={{ color: '#1803fff3' }}>
+              <span className="day-label__day-name" style={{ color: 'cornflowerblue' }}>
                 {days[dayDate.getDay()]}
               </span>
               <span
                 style={{
                   color: 'white',
-                  backgroundColor: '#1803fff3',
+                  backgroundColor: 'cornflowerblue',
                 }}
                 className="day-label__day-number"
               >

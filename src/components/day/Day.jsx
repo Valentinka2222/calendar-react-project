@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-
 import Hour from '../hour/Hour';
-
 import './day.scss';
 
 const Day = ({ changeValue, setIsHiddenModal, dataDay, dayEvents, setEvents }) => {

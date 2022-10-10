@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Navigation from './../navigation/Navigation';
 import Week from '../week/Week';
 import Sidebar from '../sidebar/Sidebar';
-
 import './calendar.scss';
 
 const Calendar = ({ setIsHiddenModal, changeValue, weekDates, events, setEvents }) => {

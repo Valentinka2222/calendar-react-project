@@ -14,11 +14,10 @@ import './modal.scss';
 
 const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isHiddenModal }) => {
   const handleChange = event => {
-    const { name, value } = event.target;
-
-    const { date, startTime, endTime } = updatedEvent;
     let startTimeEvent;
     let endTimeEvent;
+    const { name, value } = event.target;
+    const { date, startTime, endTime } = updatedEvent;
 
     if (event && name === 'startTime') {
       startTimeEvent = date + ' ' + value || date + ' ' + startTime;
@@ -27,10 +26,9 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     if (event && name === 'endTime') {
       startTimeEvent = date + ' ' + startTime || date + '' + value;
       endTimeEvent = date + ' ' + value || date + '' + startTime;
-    }
-    if (event) {
-      startTimeEvent = updatedEvent.date + ' ' + updatedEvent.startTime;
-      endTimeEvent = updatedEvent.date + ' ' + updatedEvent.endTime;
+    } else {
+      startTimeEvent = date + ' ' + startTime;
+      endTimeEvent = date + ' ' + endTime;
     }
 
     setUpdatedEvent(prevState => ({

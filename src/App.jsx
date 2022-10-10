@@ -32,12 +32,9 @@ const App = () => {
         date: moment().format('YYYY-MM-DD'),
         startTime: moment().format('HH:mm'),
         endTime: moment().add(1, 'hour').format('HH:mm'),
-        dateFrom: moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm'),
-        dateTo: moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'hour').format('HH:mm'),
       }));
     }
   };
-  console.log(updatedEvent);
   const changeValue = newDate =>
     setUpdatedEvent(prevState => ({
       ...prevState,

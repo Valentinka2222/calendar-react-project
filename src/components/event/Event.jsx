@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-
 import { deleteEvent, getEventList } from '../../gateway/eventGateAway';
-
 import './event.scss';
 import '../../common.scss';
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-
 import { formatMins } from '../../utils/dateUtils';
-
 import Event from '../event/Event';
 
 const Hour = ({
