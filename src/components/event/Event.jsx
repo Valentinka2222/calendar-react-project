@@ -7,7 +7,16 @@ import { deleteEvent, getEventList } from '../../gateway/eventGateAway';
 import './event.scss';
 import '../../common.scss';
 
-const Event = ({ setIsHiddenModal, height, marginTop, title, time, hourEvents, setEvents }) => {
+const Event = ({
+  setIsHiddenModal,
+  height,
+  marginTop,
+  title,
+  time,
+  description,
+  hourEvents,
+  setEvents,
+}) => {
   const [isShowDeleteEvent, setIsShowDeleteEvent] = useState(false);
   const eventStyle = {
     height: height,
@@ -42,6 +51,7 @@ const Event = ({ setIsHiddenModal, height, marginTop, title, time, hourEvents, s
     <div className={`event ${eventStyle}`} onClick={handleClick}>
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
+      <div className="event__title">{description}</div>
 
       {isShowDeleteEvent ? (
         <button onClick={handleDeleteEvent} className=" delete-event-btn">

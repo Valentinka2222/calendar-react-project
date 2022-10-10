@@ -31,7 +31,7 @@ const Hour = ({
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1} onClick={handleClick}>
-      {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
+      {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
         return (
           <Event
             setIsHiddenModal={setIsHiddenModal}
@@ -43,6 +43,7 @@ const Hour = ({
             marginTop={moment(dateFrom).format('mm') + 'px'}
             time={`${moment(dateFrom).format('HH:mm')} - ${moment(dateTo).format('HH:mm')}`}
             title={title}
+            description={description}
           />
         );
       })}

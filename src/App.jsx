@@ -27,9 +27,13 @@ const App = () => {
     if (updatedEvent) {
       setUpdatedEvent(prevState => ({
         ...prevState,
+        title: '',
+        description: '',
         date: moment().format('YYYY-MM-DD'),
         startTime: moment().format('HH:mm'),
         endTime: moment().add(1, 'hour').format('HH:mm'),
+        dateFrom: moment().format('YYYY-MM-DD') + ' ' + moment().format('HH:mm'),
+        dateTo: moment().format('YYYY-MM-DD') + ' ' + moment().add(1, 'hour').format('HH:mm'),
       }));
     }
   };
@@ -37,6 +41,8 @@ const App = () => {
   const changeValue = newDate =>
     setUpdatedEvent(prevState => ({
       ...prevState,
+      title: '',
+      description: '',
       date: moment(newDate).format('YYYY-MM-DD'),
       startTime: moment(newDate).format('HH:mm'),
       endTime: moment(newDate).add(1, 'hour').format('HH:mm'),

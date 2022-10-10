@@ -21,12 +21,16 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     let endTimeEvent;
 
     if (event && name === 'startTime') {
-      startTimeEvent = date + ' ' + value;
-      endTimeEvent = date + ' ' + endTime;
+      startTimeEvent = date + ' ' + value || date + ' ' + startTime;
+      endTimeEvent = date + ' ' + endTime || date + ' ' + value;
     }
     if (event && name === 'endTime') {
       startTimeEvent = date + ' ' + startTime || date + '' + value;
-      endTimeEvent = date + ' ' + value || date + '' + value;
+      endTimeEvent = date + ' ' + value || date + '' + startTime;
+    }
+    if (event) {
+      startTimeEvent = updatedEvent.date + ' ' + updatedEvent.startTime;
+      endTimeEvent = updatedEvent.date + ' ' + updatedEvent.endTime;
     }
 
     setUpdatedEvent(prevState => ({
@@ -41,16 +45,6 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
   }, []);
   const handleSubmit = (event, eventData) => {
     const { endTime, startTime, dateFrom } = eventData;
-
-    getEventList().then(eventsList => {
-      // if (validatorHaveEvent(eventsList, dateFrom)) {
-      //   alert('You have event in this time!');
-      //   return;
-      // } else {
-      сreateEvent(eventData).then(() => getEventList().then(eventsList => setEvents(eventsList)));
-      // }
-    });
-
     if (validatorMultMin(endTime)) {
       alert('Time must be a multiple of 15 minutes');
       return;
@@ -66,6 +60,17 @@ const Modal = ({ setIsHiddenModal, updatedEvent, setUpdatedEvent, setEvents, isH
     } else if (validatorEventDuration(endTime, startTime)) {
       alert('The event must last more than 6 hours');
       return;
+    } else {
+      getEventList().then(eventsList => {
+        if (validatorHaveEvent(eventsList, dateFrom)) {
+          alert('You have event in this time!');
+          return;
+        } else {
+          сreateEvent(eventData).then(() =>
+            getEventList().then(eventsList => setEvents(eventsList)),
+          );
+        }
+      });
     }
 
     event.preventDefault();
