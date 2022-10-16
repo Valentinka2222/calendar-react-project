@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { сreateEvent } from '../../gateway/eventGateAway';
-import { getEventList } from '../../gateway/eventGateAway.js';
+import { сreateEvent } from '../../getaway/eventGateAway';
+import { getEventList } from '../../getaway/eventGateAway.js';
 import {
   validatorHaveEvent,
   validatorMultMin,
