@@ -11,7 +11,7 @@
 <li style="font-size:16px" ><a href="https://en.wikipedia.org/wiki/HTML5" target="blank">HTML5</a></li>
 <li style="font-size:16px" ><a href="https://www.npmjs.com/package/eslint" target="blank">Eslint</a></li>
 <li style="font-size:16px" ><a href="https://babeljs.io/" target="blank">Babel</a></li>
-<li style="font-size:16px" ><a href="https://webpack.js.org/"target="blank">Webpack</a></li>
+<li style="font-size:16px" ><a href="https://webpack.js.org/" target="blank">Webpack</a></li>
 <li ><a href="https://sass-lang.com/" target="blank">Sass(Scss)</a></li>
 <li ><a href="https://en.bem.info/methodology/" target="blank">BEM methodology</a></li><br>
 
@@ -27,7 +27,7 @@
 <ol><h2>Development</h2>
 <li>Install the node dependencies <b>npm install</b></li>
 <li>Start the environment with <b>npm start</b></li>
-<li>Visit your new local environment at <b><a href="http://localhost:8000"target="blank">http://localhost:8000</a></b></li>
+<li>Visit your new local environment at <b><a href="http://localhost:8000" target="blank">http://localhost:8000</a></b></li>
 </ol>
 
 <lu  style="font-size:20px" padding-top="10px" ><b>Author</b></lu>
