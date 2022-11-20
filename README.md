@@ -9,7 +9,7 @@
 <li ><a href="https://git-scm.com/" target="blank">Git</a></li>
 <li ><a href="https://reactjs.org/" target="blank">React</a></li>
 <li ><a href="https://en.wikipedia.org/wiki/HTML5" target="blank">HTML5</a></li>
-<li><a href="https://www.npmjs.com/package/eslint" target="blank">Eslint</a></li>
+<li ><a href="https://www.npmjs.com/package/eslint" target="blank">Eslint</a></li>
 <li ><a href="https://babeljs.io/" target="blank">Babel</a></li>
 <li ><a href="https://webpack.js.org/" target="blank">Webpack</a></li>
 <li ><a href="https://sass-lang.com/" target="blank">Sass(Scss)</a></li>
