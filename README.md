@@ -27,7 +27,7 @@
 <ol><h2>Development</h2>
 <li>Install the node dependencies <b>npm install</b></li>
 <li>Start the environment with <b>npm start</b></li>
-<li>Visit your new local environment at <b>[http://localhost:8080](http://localhost:8000)</b></li>
+<li>Visit your new local environment at <b><a href='http://localhost:8000'target="blank">http://localhost:8000</a></b></li>
 </ol>
 
 <lu  style="font-size:20px" padding-top="10px" ><b>Author</b></lu>
